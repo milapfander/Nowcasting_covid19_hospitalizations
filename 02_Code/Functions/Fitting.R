@@ -25,7 +25,7 @@
 nowcasting <- function(doa, T_0, d_max, base = "Meldedatum", n = 100,
                        create_plots = FALSE, print_effects = FALSE,
                        path = "Nowcast_Hosp/01_Data", save = TRUE,
-                       LGL_data = TRUE, location_RKI = "DE", due_to_covid = FALSE,
+                       location_RKI = "DE", due_to_covid = FALSE,
                        quantiles = c(0.025, 0.1, 0.25, 0.5, 0.75, 0.8, 0.85, 0.9, 0.95, 0.975),
                        age_groups = "split60", adjust_quantiles = FALSE,
                        save_model = FALSE, save_bootstrap = FALSE,
@@ -43,10 +43,6 @@ nowcasting <- function(doa, T_0, d_max, base = "Meldedatum", n = 100,
   library(parallel)
   library(dplyr)
   
-  if (LGL_data == FALSE) {
-    doa <- doa + days(1)
-  }
-    
   T_max <- interval(T_0, doa) %/% days(1)
   dates <- seq(from = as.Date(T_0), to = as.Date(T_0) + days(T_max) - 1,
                by = "days")
@@ -59,127 +55,50 @@ nowcasting <- function(doa, T_0, d_max, base = "Meldedatum", n = 100,
     locale_weekday <- "English"
   }
   
-  # 6 age groups: "00-04", "05-14", "15-34", "35-59", "60-79", "80+"
-  if (LGL_data == TRUE) {
-    # Read data:
-    file_doa <- paste0("hosp_prepared_", doa, ".rds")
-    data <- readRDS(paste0(path, "/Data_prepared/", file_doa))
-    
-    # Filter patients admitted due to COVID:
-    if (due_to_covid == TRUE) {
-      data <- data %>%
-        filter(ExHosp_Reason1 == "Hospitalisiert aufgrund der gemeldeten Krankheit")
-    }
-    
-    # Create base variable for Meldedatum or Hospdatum:
-    data <- data %>% mutate(base = !!sym(base))
-    
-    # Store older data not used for fitting of the model:
-    data_old <- data %>% filter(base < T_0)
-    
-    # Define age groups:
-    if (age_groups == "split60") {
-      data <- data #%>%
-        #mutate(Altersgruppe = case_when(AlterBerechnet < 60 ~ "0-60",
-        #                                AlterBerechnet >= 60 ~ "60+"),
-        #       Altersgruppe = factor(x = Altersgruppe,
-        #                             levels = c("0-60", "60+")))
-    }
-    else {
-      data <- data %>%
-        mutate(Altersgruppe = case_when(AlterBerechnet <= 4 ~ "0-4",
-                                        AlterBerechnet >= 5 &
-                                          AlterBerechnet <= 14 ~ "5-14",
-                                        AlterBerechnet >= 15 &
-                                          AlterBerechnet <= 34 ~ "15-34",
-                                        AlterBerechnet >= 35 &
-                                          AlterBerechnet <= 59 ~ "35-59",
-                                        AlterBerechnet >= 60 &
-                                          AlterBerechnet <= 79 ~ "60-79",
-                                        AlterBerechnet >= 80 ~ "80+"),
-               Altersgruppe = factor(x = Altersgruppe,
-                                     levels = c("0-4", "5-14", "15-34",
-                                                "35-59","60-79", "80+")))
-    }
-    
-    
-    # Group data according to Registrierungsdatum, Meldedatum and Altersgruppe:
-    data <- data %>%
-      filter(base >= T_0) %>%
-      mutate(d = as.numeric(Meldedatum_Hosp - base)) %>%
-      # Manually correct d = 0 to d = 1:
-      mutate(d = if_else(condition = d == 0, true = 1, false = d),
-             base = if_else(condition = Meldedatum_Hosp == base,
-                            true = base - days(1), false = base)) %>%
-      group_by(base, Meldedatum_Hosp, d, Altersgruppe) %>%
-      dplyr::summarize(N_t_d = pmax(n(), 0)) %>%
-      dplyr::select(base, Meldedatum_Hosp, d, Altersgruppe, N_t_d) %>%
-      # Filter data according to specified inputs:
-      dplyr::filter(base %in% dates, d <= d_max, d > 0, Meldedatum_Hosp <= doa)
-    
-    # Grid for all possible date combinations:
-    data_grid <- expand.grid(dates, c(dates + d_max, dates),
-                             levels(data$Altersgruppe)) %>%
-      distinct()
-    colnames(data_grid) <- c("base", "Meldedatum_Hosp", "Altersgruppe")
-    data_grid <- data_grid %>% mutate(d = as.numeric(Meldedatum_Hosp - base)) %>%
-      dplyr::filter(d <= d_max, Meldedatum_Hosp > base)
-    
-    # Join data with grid data:
-    data_nowcast <- full_join(data, data_grid) %>% distinct() %>%
-      mutate(Wochentag = lubridate::wday(x = base, label = TRUE, abbr = FALSE,
-                                         locale = locale_weekday),
-             N_t_d = if_else(is.na(N_t_d), 0, N_t_d)) %>%
-      arrange(base, Meldedatum_Hosp, d, Altersgruppe)
+  # RKI data:
+  # Read data:
+  doa1 <- doa - days(1)
+  data <- data.table(read.csv(paste0(path, "/Data_RKI/COVID-19_hospitalizations_preprocessed_", doa1, ".csv")))
+  data <- data[data$age_group != "00+"]
+  data$age_group <- factor(data$age_group)
+  colnames(data)[[1]] <- "date"
+  
+  # Reformat variables:
+  dat <- melt(data = data, id.vars = c("date", "location", "age_group"),
+              variable.name = "d")
+  dat$d <- as.numeric(gsub(pattern = "value_(\\.)?|d", x = dat$d,
+                           replacement = ""))
+  dat <- dat %>% filter(location == location_RKI) %>% 
+    mutate(date = as.Date(date), Meldedatum_Hosp = date + d) %>%
+    dplyr::rename(base = date, Altersgruppe = age_group, N_t_d = value)
+  
+  # Only two age groups when age_group = "split60" is specified:
+  if (age_groups == "split60") {
+    dat <- dat %>%
+      mutate(Altersgruppe = factor(x = ifelse(test = Altersgruppe %in% c("60-79",
+                                                                   "80+"),
+                                           yes = "60+", no = "0-60")))
+  }
+  else {
+    dat <- dat %>% mutate(Altersgruppe = as.factor(Altersgruppe))
   }
   
-  # RKI data:
-  if (LGL_data == FALSE) {
-    
-    # Read data:
-    doa1 <- doa - days(1)
-    data <- data.table(read.csv(paste0(path, "/Data_RKI/COVID-19_hospitalizations_preprocessed_", doa1, ".csv")))
-    data <- data[data$age_group != "00+"]
-    data$age_group <- factor(data$age_group)
-    colnames(data)[[1]] <- "date"
-    
-    # Reformat variables:
-    dat <- melt(data = data, id.vars = c("date", "location", "age_group"),
-                variable.name = "d")
-    dat$d <- as.numeric(gsub(pattern = "value_(\\.)?|d", x = dat$d,
-                             replacement = ""))
-    dat <- dat %>% filter(location == location_RKI) %>% 
-      mutate(date = as.Date(date), Meldedatum_Hosp = date + d) %>%
-      dplyr::rename(base = date, Altersgruppe = age_group, N_t_d = value)
-    
-    # Only two age groups when age_group = "split60" is specified:
-    if (age_groups == "split60") {
-      dat <- dat %>%
-        mutate(Altersgruppe = factor(x = ifelse(test = Altersgruppe %in% c("60-79",
-                                                                     "80+"),
-                                             yes = "60+", no = "0-60")))
-    }
-    else {
-      dat <- dat %>% mutate(Altersgruppe = as.factor(Altersgruppe))
-    }
-    
-    # Replace negative values:
-    dat$N_t_d[dat$N_t_d < 0 | is.na(dat$N_t_d)] <- 0
-    
-    # Prepare nowcast data:
-    data_nowcast <- dat %>% 
-      mutate(Wochentag = lubridate::wday(x = base, label = TRUE,
-                                         abbr = FALSE, locale = locale_weekday),
-             d = d + 1) %>%
-      group_by(base, Altersgruppe, d, Meldedatum_Hosp, Wochentag) %>% 
-      dplyr::summarise(N_t_d = sum(N_t_d)) %>%
-      arrange(base, Meldedatum_Hosp)
-    
-    data_old <- data_nowcast %>% filter(base < T_0)
-    data_nowcast <- data_nowcast %>% filter(d %in% 1:(d_max + 1),
-                                            base %in% dates)
-  }
-
+  # Replace negative values:
+  dat$N_t_d[dat$N_t_d < 0 | is.na(dat$N_t_d)] <- 0
+  
+  # Prepare nowcast data:
+  data_nowcast <- dat %>% 
+    mutate(Wochentag = lubridate::wday(x = base, label = TRUE,
+                                       abbr = FALSE, locale = locale_weekday),
+           d = d + 1) %>%
+    group_by(base, Altersgruppe, d, Meldedatum_Hosp, Wochentag) %>% 
+    dplyr::summarise(N_t_d = sum(N_t_d)) %>%
+    arrange(base, Meldedatum_Hosp)
+  
+  data_old <- data_nowcast %>% filter(base < T_0)
+  data_nowcast <- data_nowcast %>% filter(d %in% 1:(d_max + 1),
+                                          base %in% dates)
+  
   # Add cumulative numbers:
   data_nowcast <- data_nowcast %>% group_by(base, Altersgruppe) %>%
     mutate(C_t_d = cumsum(N_t_d),
@@ -206,31 +125,29 @@ nowcasting <- function(doa, T_0, d_max, base = "Meldedatum", n = 100,
                data = data_nowcast_model[data_nowcast_model$d > 1, ])
   
   # Save model if requested:
-  if (LGL_data == FALSE) {
-    doa <- doa - days(1)
-    if (save_model == TRUE) {
-      if (retrospective == FALSE) {
-        if (!dir.exists(paste0(path, "/../03_Results/RKI_results/", doa, "/"))) {
-          dir.create(paste0(path, "/../03_Results/RKI_results/", doa, "/"))
-        }
-        saveRDS(object = model,
-                file = paste0(path, "/../03_Results/RKI_results/", doa,
-                              "/nowcasting_model_", location_RKI, "_", doa,
-                              ".rds"))
-                              
+  doa <- doa - days(1)
+  if (save_model == TRUE) {
+    if (retrospective == FALSE) {
+      if (!dir.exists(paste0(path, "/../03_Results/RKI_results/", doa, "/"))) {
+        dir.create(paste0(path, "/../03_Results/RKI_results/", doa, "/"))
       }
-      if (retrospective == TRUE) {
-        if (!dir.exists(paste0(path, "/../03_Results/RKI_results_retrospective/", doa, "/"))) {
-          dir.create(paste0(path, "/../03_Results/RKI_results_retrospective/", doa, "/"))
-        }
-        saveRDS(object = model,
-                file = paste0(path, "/../03_Results/RKI_results_retrospective/", doa,
-                              "/nowcasting_model_", location_RKI, "_", doa,
-                              ".rds"))
-                              
-      }
+      saveRDS(object = model,
+              file = paste0(path, "/../03_Results/RKI_results/", doa,
+                            "/nowcasting_model_", location_RKI, "_", doa,
+                            ".rds"))
+                            
     }
-  }  
+    if (retrospective == TRUE) {
+      if (!dir.exists(paste0(path, "/../03_Results/RKI_results_retrospective/", doa, "/"))) {
+        dir.create(paste0(path, "/../03_Results/RKI_results_retrospective/", doa, "/"))
+      }
+      saveRDS(object = model,
+              file = paste0(path, "/../03_Results/RKI_results_retrospective/", doa,
+                            "/nowcasting_model_", location_RKI, "_", doa,
+                            ".rds"))
+                            
+    }
+  }
   
   data_nowcast_model$pi[data_nowcast_model$d > 1] <- predict.gam(object = model,
                                                                  type = "response")
@@ -242,7 +159,7 @@ nowcasting <- function(doa, T_0, d_max, base = "Meldedatum", n = 100,
   data_nowcast <- predict_nowcast(model = model, data = data_nowcast, doa = doa,
                                   T_max = T_max, quantiles = quantiles, n = n,
                                   adjust_quantiles = adjust_quantiles,
-                                  LGL_data = LGL_data, path = path,
+                                  path = path,
                                   retrospective = retrospective,
                                   save_bootstrap = save_bootstrap,
                                   location_RKI = location_RKI)
@@ -258,7 +175,7 @@ nowcasting <- function(doa, T_0, d_max, base = "Meldedatum", n = 100,
                   starts_with("F_quantile_")) %>%
     arrange(desc(base))
   
-  data_report <- add_older_data(data_report, data_old, LGL_data, age_groups,
+  data_report <- add_older_data(data_report, data_old, age_groups,
                                 quantiles)
   
   # Add 7-day sum of reported values:
@@ -287,40 +204,26 @@ nowcasting <- function(doa, T_0, d_max, base = "Meldedatum", n = 100,
                              "F_est", paste0("F_",rep(quantiles, each=1)))
   
   # Correct unplausibly low and high quantiles:
-  if (LGL_data == FALSE)  {
-    data_report <- data_report %>% adjust_high_quantiles() %>% correct_zeros()
-  }
-  
+  data_report <- data_report %>% adjust_high_quantiles() %>% correct_zeros()
+
   # Save daily results:
   if (save == TRUE) {
-    if (LGL_data == TRUE) {
-      if (due_to_covid == FALSE) {
-        readr::write_csv2(data_report, paste0(path, "/../03_Results/LGL_results/nowcasting_results_",
-                                              base, "_", doa, ".csv"))
+    if (retrospective == FALSE) {
+      if (!dir.exists(paste0(path, "/../03_Results/RKI_results/", doa, "/"))) {
+        dir.create(paste0(path, "/../03_Results/RKI_results/", doa, "/"))
       }
-      if (due_to_covid == TRUE) {
-        readr::write_csv2(data_report, paste0(path, "/../03_Results/LGL_results/nowcasting_results_covid_",
-                                              base, "_", doa, ".csv"))
-      }
-    } else {
-      if (retrospective == FALSE) {
-        if (!dir.exists(paste0(path, "/../03_Results/RKI_results/", doa, "/"))) {
-          dir.create(paste0(path, "/../03_Results/RKI_results/", doa, "/"))
-        }
-        readr::write_csv2(data_report,
-                          paste0(path, "/../03_Results/RKI_results/", doa,
-                                 "/nowcasting_results_", location_RKI, "_", doa, ".csv"))
-      }
-      if (retrospective == TRUE) {
-        if (!dir.exists(paste0(path, "/../03_Results/RKI_results_retrospective/", doa, "/"))) {
-          dir.create(paste0(path, "/../03_Results/RKI_results_retrospective/", doa, "/"))
-        }
-        readr::write_csv2(data_report,
-                          paste0(path, "/../03_Results/RKI_results_retrospective/", doa,
-                                 "/nowcasting_results_", location_RKI, "_", doa, ".csv"))
-      }
+      readr::write_csv2(data_report,
+                        paste0(path, "/../03_Results/RKI_results/", doa,
+                               "/nowcasting_results_", location_RKI, "_", doa, ".csv"))
     }
-    
+    if (retrospective == TRUE) {
+      if (!dir.exists(paste0(path, "/../03_Results/RKI_results_retrospective/", doa, "/"))) {
+        dir.create(paste0(path, "/../03_Results/RKI_results_retrospective/", doa, "/"))
+      }
+      readr::write_csv2(data_report,
+                        paste0(path, "/../03_Results/RKI_results_retrospective/", doa,
+                               "/nowcasting_results_", location_RKI, "_", doa, ".csv"))
+    }
   }
   
   # Return nowcast results:
@@ -350,7 +253,7 @@ nowcasting <- function(doa, T_0, d_max, base = "Meldedatum", n = 100,
 
 predict_nowcast <- function(model, data, doa, T_max, quantiles, n = 1000,
                             alpha = 0.05, adjust_quantiles = FALSE,
-                            LGL_data = FALSE, retrospective = FALSE,
+                            retrospective = FALSE,
                             save_bootstrap = FALSE, location_RKI = "DE",
                             path = "Nowcast_Hosp/01_Data") {
   
@@ -510,26 +413,24 @@ predict_nowcast <- function(model, data, doa, T_max, quantiles, n = 1000,
     group_by(base, Altersgruppe) %>% slice(tail(row_number(), 1)) %>%
     arrange(desc(base), Altersgruppe)
   
-  if (LGL_data == FALSE) {
-    if (save_bootstrap == TRUE) {
-      if (retrospective == FALSE) {
-        if (!dir.exists(paste0(path, "/../03_Results/RKI_results/", doa, "/"))) {
-          dir.create(paste0(path, "/../03_Results/RKI_results/", doa, "/"))
-        }
-        readr::write_csv2(bootstrap_results,
-                          paste0(path, "/../03_Results/RKI_results/", doa,
-                                 "/bootstrap_results_", location_RKI, "_", doa, ".csv"))
+  if (save_bootstrap == TRUE) {
+    if (retrospective == FALSE) {
+      if (!dir.exists(paste0(path, "/../03_Results/RKI_results/", doa, "/"))) {
+        dir.create(paste0(path, "/../03_Results/RKI_results/", doa, "/"))
       }
-      if (retrospective == TRUE) {
-        if (!dir.exists(paste0(path, "/../03_Results/RKI_results_retrospective/", doa, "/"))) {
-          dir.create(paste0(path, "/../03_Results/RKI_results_retrospective/", doa, "/"))
-        }
-        readr::write_csv2(bootstrap_results,
-                          paste0(path, "/../03_Results/RKI_results_retrospective/", doa,
-                                 "/bootstrap_results_", location_RKI, "_", doa, ".csv"))
+      readr::write_csv2(bootstrap_results,
+                        paste0(path, "/../03_Results/RKI_results/", doa,
+                               "/bootstrap_results_", location_RKI, "_", doa, ".csv"))
+    }
+    if (retrospective == TRUE) {
+      if (!dir.exists(paste0(path, "/../03_Results/RKI_results_retrospective/", doa, "/"))) {
+        dir.create(paste0(path, "/../03_Results/RKI_results_retrospective/", doa, "/"))
       }
-    }  
-  }  
+      readr::write_csv2(bootstrap_results,
+                        paste0(path, "/../03_Results/RKI_results_retrospective/", doa,
+                               "/bootstrap_results_", location_RKI, "_", doa, ".csv"))
+    }
+  }
   
   
   # Add quantiles:
@@ -586,50 +487,15 @@ predict_nowcast <- function(model, data, doa, T_max, quantiles, n = 1000,
 # Input: 
 # - data_report: output data of nowcasting model
 # - data_old: data containing data with baseline dates older than T_0
-add_older_data <- function(data_report, data_old, LGL_data,age_groups, quantiles) {
-  if (LGL_data == TRUE) {
-    # Define age groups:
-    if (age_groups == "split60") {
-      data_old <- data_old #%>%
-        #mutate(Altersgruppe = case_when(AlterBerechnet < 60 ~ "0-60",
-        #                                AlterBerechnet >= 60 ~ "60+"),
-        #       Altersgruppe = factor(x = Altersgruppe,
-        #                             levels = c("0-60", "60+")))
-    }
-    else {
-      data_old <- data_old %>%
-        mutate(Altersgruppe = case_when(AlterBerechnet <= 4 ~ "0-4",
-                                        AlterBerechnet >= 5 &
-                                          AlterBerechnet <= 14 ~ "5-14",
-                                        AlterBerechnet >= 15 &
-                                          AlterBerechnet <= 34 ~ "15-34",
-                                        AlterBerechnet >= 35 &
-                                          AlterBerechnet <= 59 ~ "35-59",
-                                        AlterBerechnet >= 60 &
-                                          AlterBerechnet <= 79 ~ "60-79",
-                                        AlterBerechnet >= 80 ~ "80+"),
-               Altersgruppe = factor(x = Altersgruppe,
-                                     levels = c("0-4", "5-14", "15-34",
-                                                "35-59","60-79", "80+")))
-    }
-  } else{
-     data_old <- data_old %>% mutate(Altersgruppe = as.factor(Altersgruppe))
-  }
+add_older_data <- function(data_report, data_old, age_groups, quantiles) {
+  data_old <- data_old %>% mutate(Altersgruppe = as.factor(Altersgruppe))
   
   # Preparation of older data:
-  if (LGL_data == TRUE) {
-    data_old <- data_old %>% group_by(Altersgruppe, base) %>%
-      dplyr::summarize(C_t_d = pmax(n(), 0)) %>% ungroup() %>%
-      complete(base = seq.Date(min(base), max(base), by = "day"), Altersgruppe,
-               fill = list(C_t_d = 0)) %>% distinct()
-  }
-  else {
-    data_old <- data_old %>%
-      group_by(Altersgruppe, base) %>%
-      dplyr::summarize(C_t_d = sum(N_t_d)) %>% ungroup %>%
-      complete(base = seq.Date(min(base), max(base), by = "day"), Altersgruppe,
-               fill = list(C_t_d = 0)) %>% distinct()
-  }
+  data_old <- data_old %>%
+    group_by(Altersgruppe, base) %>%
+    dplyr::summarize(C_t_d = sum(N_t_d)) %>% ungroup %>%
+    complete(base = seq.Date(min(base), max(base), by = "day"), Altersgruppe,
+             fill = list(C_t_d = 0)) %>% distinct()
   
   data_old_both <- data_old %>% group_by(base) %>%
     dplyr::summarize(C_t_d = sum(C_t_d)) %>% mutate(Altersgruppe = "alle")

@@ -1,11 +1,11 @@
-#' function to merge all nowcasts, coverage- and pit-corrections in a given consequent period
+#' function to merge all nowcasts and coverage-corrections in a given consequent period
 #' @param start_date,end_date start and end date of period, must be dates
 #' @param locations location vector, defaults to all 16 federal regions and Germany
 #' @param retrospective logical indicating retrospective analysis, default TRUE
 #' @param days number of days used for evaluation
 #' 
 #' @return df with columns nowcast and calculation date, age, location, realized7 after 40 days,
-#'         nowcast, coverage- and pit-corrected quantiles and estimates
+#'         nowcast and coverage-corrected quantiles and estimates
 merge_nowcast_corrections <- function(start_date, end_date,
                        locations = c("DE", "DE-BB", "DE-BE", "DE-BW", "DE-BY", "DE-HB", "DE-HE",
                                      "DE-HH", "DE-MV", "DE-NI", "DE-NW", "DE-RP", "DE-SH", "DE-SL",
@@ -41,44 +41,19 @@ merge_nowcast_corrections <- function(start_date, end_date,
     
     # all coverage corrections of a day
     dat_coverage <- lapply(locations, function(l){
-      temp <- read_csv2(paste0("03_Results/RKI_results",
+      read_csv2(paste0("03_Results/RKI_results",
                        retro, curr_date, "/coverage_correction_nowcasting_results_",
                        l, "_", curr_date, ".csv")) %>%
         mutate(date_calc = curr_date,
                location = l) %>%
         dplyr::select(date, date_calc, age60, location, starts_with("nowcast7_"))
-      
-      #colnames(temp) <- str_replace(colnames(temp), "nowcast7", replacement = "coverage_corr7")
-      
-      temp
     }) %>%
       bind_rows() %>%
       filter(date > curr_date - days) %>%
       mutate(method = "factor")
     
-    # all pit corrections of a day
-    dat_pit <- lapply(locations, function(l){
-      temp <- read_csv2(paste0("03_Results/RKI_results",
-                       retro, curr_date, "/pit_correction_nowcasting_results_",
-                       l, "_", curr_date, ".csv")) %>%
-        mutate(date_calc = curr_date,
-               location = l) %>%
-        dplyr::select(date, date_calc, age60, location, starts_with("nowcast7_"))
-      
-      #colnames(temp) <- str_replace(colnames(temp), "nowcast7", replacement = "pit_corr7")
-      
-      temp
-    }) %>%
-      bind_rows() %>%
-      filter(date > curr_date - days) %>%
-      mutate(method = "pit")
-    
-    # join three data frames
-    dat_one_day <- bind_rows(dat_nowcast, dat_coverage, dat_pit)
-    #dat_one_day <- left_join(x = dat_nowcast, y = dat_coverage,
-    #                         by = c("date", "date_calc", "age60", "location"))
-    #dat_one_day <- left_join(x = dat_one_day, y = dat_pit,
-    #                         by = c("date", "date_calc", "age60", "location"))
+    # join data frames
+    dat_one_day <- bind_rows(dat_nowcast, dat_coverage)
   }) %>% bind_rows()
   
   # read data realized7 after 40 days
