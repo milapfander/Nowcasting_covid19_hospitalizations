@@ -1,5 +1,5 @@
 evalNowcast <- function(doa_first = NULL, doa_last = Sys.Date(), d_max = 40, base = "Meldedatum", 
-                        location_RKI = "DE", correction = T) {
+                        location_RKI = "DE", correction = T, plot_daily = F) {
   
   library(lubridate)
   library(dplyr)
@@ -58,11 +58,13 @@ evalNowcast <- function(doa_first = NULL, doa_last = Sys.Date(), d_max = 40, bas
                      min(eval_data$date) + days(1), "_to_", doa_last - d_max, ".csv")
   
   write.csv2(x = eval_data, file = filename)
-  return(eval_data)
+  
+  evalPlot(eval_data, daily = plot_daily, base = base, location_RKI = location_RKI, 
+           correction = correction)
 }
 
 
-evalPlot <- function (data_eval, daily = F, base = "Meldedatum", age = "alle", 
+evalPlot <- function (data_eval, daily = F, base = "Meldedatum", 
                       location_RKI = "DE", correction = T) {
   
   library(ggplot2)
@@ -71,58 +73,47 @@ evalPlot <- function (data_eval, daily = F, base = "Meldedatum", age = "alle",
   cov_corr <- ifelse(correction, "coverage_correction_", "")
   base <- ifelse(base == "Hospdatum", "Hospitalisierungsdatum", base)
   
-  data <- data_eval %>% filter(age60 == age)
   
   if (daily) {
     # täglicher Vergleich
-    plot <- ggplot(data = data) +
+    plot <- ggplot(data = data_eval) +
       geom_line(aes(date, nowcast_est, col = "Nowcast")) +
       geom_line(aes(date, reported, col = "Meldungen")) +
       geom_ribbon(aes(date, ymin = nowcast_0.025, ymax = nowcast_0.975),
                   fill = "cornflowerblue",
                   col = NA,
-                  alpha = .4) +
-      theme_bw() +
-      labs(x = base, 
-           y ="Hospitalisierungen") +
-      scale_x_date(date_labels = "%d.%m.%y") +
-      theme(axis.text = element_text(size = 14), 
-            axis.title = element_text(size = 14),
-            legend.position = "top") +
-      scale_color_manual(name = NULL, values = c("Nowcast" = "cornflowerblue",
-                                                 "Meldungen" = "black"))
-    
-    filename <- paste0("Nowcast_Hosp/03_Results/Evaluation/Plots/eval_plot_daily", 
-                       age60,
-                       "_",
-                       tolower(substr(base, 1, 4)),
-                       ".png")
+                  alpha = .4)
+    labs(x = base, 
+         y = "Hospitalisierungen")
     
   } else {
     # 7-tägiger Vergleich
-    plot <- ggplot(data = data) +
+    plot <- ggplot(data = data_eval) +
       geom_line(aes(date, nowcast7_est, col = "Nowcast")) +
       geom_line(aes(date, reported7, col = "Meldungen")) +
       geom_ribbon(aes(date, ymin = nowcast7_0.025, ymax = nowcast7_0.975), 
                   fill = "cornflowerblue", 
                   col = NA,
                   alpha = .4) +
-      theme_bw() +
       labs(x = base, 
-           y ="7-tägige Hospitalisierungen") +
-      scale_x_date(date_labels = "%d.%m.%y", date_breaks = "15 days") +
-      theme(axis.text = element_text(size = 14), 
-            axis.title = element_text(size = 14), 
-            legend.position = "top") +
-      scale_color_manual(name = NULL, values = c("Nowcast" = "cornflowerblue", 
-                                                 "Meldungen" = "black"))
-    
-    filename <- paste0("Nowcast_Hosp/03_Results/Evaluation/Plots/eval_plot_7daily", 
-                       age60,
-                       "_",
-                       tolower(substr(base, 1, 4)),
-                       ".png")
+           y = "7-tägige Hospitalisierungen")
   }
+  
+  plot <- plot +
+    facet_wrap(~age60, scale = "free") +
+    theme_bw() +
+    scale_x_date(date_labels = "%d.%m.%y") +
+    scale_color_manual(name = NULL, values = c("Nowcast" = "cornflowerblue", 
+                                               "Meldungen" = "black")) +
+    theme(axis.text = element_text(size = 14), 
+          axis.title = element_text(size = 14),
+          legend.position = "top")
+  
+  filename <- paste0("Nowcast_Hosp/03_Results/Evaluation/Plots/eval_plot_",
+                     cov_corr,
+                     ifelse(daily, "", "7"), "daily_",
+                     tolower(substr(base, 1, 4)),
+                     ".png")
   
   ggsave(filename = filename, plot = plot)
   return(plot)
