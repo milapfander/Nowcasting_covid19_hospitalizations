@@ -1,4 +1,4 @@
-evalNowcast <- function(doa_first = NULL, doa_last = Sys.Date(), base = "Meldedatum", 
+evalNowcast <- function(doa_first = NULL, doa_last = Sys.Date(), d_max = 40, base = "Meldedatum", 
                         location_RKI = "DE", correction = T) {
   
   library(lubridate)
