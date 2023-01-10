@@ -15,6 +15,7 @@ library(stringr)
 source("Nowcast_Hosp/02_Code/Functions/Fitting.R")
 source("Nowcast_Hosp/02_Code/Functions/formatting_RKI_data.R")
 source("Nowcast_Hosp/02_Code/Functions/Intervals.R")
+source("Nowcast_Hosp/02_Code/Functions/Evaluation.R")
 
 # Perform RKI nowcast
 doa <- Sys.Date()
@@ -114,8 +115,37 @@ lapply(X = locations, FUN = function(location) {
 formatting_RKI_data(doa, locations = locations, limit_factor = 0.9)
 
 
-
-
-
-
-
+# Evaluation
+if (cores == 1) {
+  lapply(X = locations, FUN = function(location) {
+    print(location)
+    evalNowcast(doa_last = doa, d_max = d_max, location_RKI = locations, correction = T, plot = T)
+    })
+  
+} else {
+  
+  # Multiple cores:
+  print_logMessage(paste0("Run nowcast models on ", cores, " cores."),
+                   verbose_toLogFile = TRUE, reset_logFile = TRUE)
+  
+  # Windows:
+  if (Sys.info()['sysname'] == "Windows") {
+    local_cluster <- makePSOCKcluster(rep("localhost", cores))
+    clusterExport(cl = local_cluster,
+                  varlist = c("nowcasting", "predict_nowcast",
+                              "add_older_data", "doa", "days", "T_0", "d_max"),
+                  envir = environment(nowcasting))
+    parLapply(cl = local_cluster, X = locations, fun = function(location) {
+      print(location)
+      evalNowcast(doa_last = doa, d_max = d_max, location_RKI = locations, correction = T, plot = T)
+    })
+    stopCluster(local_cluster)
+  } else {
+    # Other operating systems:
+    mclapply(X = locations, FUN = function(location) {
+      print(location)
+      evalNowcast(doa_last = doa, d_max = d_max, location_RKI = locations, correction = T, plot = T)
+    },
+    mc.cores = cores)
+  }
+}

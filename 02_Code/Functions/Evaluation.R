@@ -1,105 +1,92 @@
-evalNowcast <- function(doa_first = NULL, doa_last = Sys.Date(), d_max = 40, base = "Meldedatum", 
-                        location_RKI = "DE", correction = T, plot_daily = F) {
+evalNowcast <- function(doa_last = Sys.Date(), d_max = 40,  
+                        location_RKI = "DE", correction = T, plot = T) {
   
   library(lubridate)
   library(dplyr)
   
+  
   cov_corr <- ifelse(correction, "coverage_correction_", "")
   
-  # if (is.null(doa_first)) {
-  #   filenames <- unlist(list.files("Nowcast_Hosp/03_Results/Evaluation",
-  #                                  pattern = "*.csv",
-  #                                  full.names = TRUE))
-  #   filename_dates <- as.Date(substr(filenames, nchar(filenames) - 13, nchar(filenames) - 4))
-  # 
-  #   doa_first <- max(filename_dates) + days(1)
-  # 
-  #   old_data <- read.csv2(filenames[[which.max(filename_dates)]])
-  #   old_data$X <- NULL
-  #   old_data$date <- as.Date(old_data$date)
-  # }
+  filename <- unlist(list.files("Nowcast_Hosp/03_Results",
+                                pattern = paste0(cov_corr, "evaluation_data.RDS"),
+                                full.names = TRUE))
   
-  # Beobachtung
-  days <- seq(from = doa_first, to = doa_last - d_max, by = 1)
+  first_day <- doa_last - d_max - 99
+  
+  if (length(filename) != 0) {
+    old_eval_data <- readRDS(file = filename)
+    first_day <- max(old_eval_data$date) + 1
+    
+    if (first_day > doa_last - d_max) {
+      stop("The starting day is larger than the day of analysis.")
+    }
+  }
+  
+  days <- seq(from = first_day, to = doa_last - d_max, by = 1)
   now_list_recent <- list()
-  
+  browser()
   # Evaluation & Datenaufbereitung: Nowcasting für alle 8-wöchigen Zeitabschnitte
   for (d in seq_along(days)) {
+    # nowcasted data
     now_dat <- read.csv2(paste0("Nowcast_Hosp/03_Results/RKI_results/", days[[d]],
                                 "/", cov_corr, "nowcasting_results_", location_RKI, 
                                 "_", days[[d]], ".csv"))
     
-    now_list_recent[[d]] <- now_dat %>%
+    now_dat_day <- now_dat %>%
       filter(date == days[[d]]) %>%
-      select(c("date", "age60", "nowcast_est", "nowcast_0.025", "nowcast_0.975", 
-               "nowcast7_est", "nowcast7_0.025", "nowcast7_0.975"))
+      select("date", "age60", "nowcast_est", "nowcast_0.025", "nowcast_0.975", 
+             "nowcast7_est", "nowcast7_0.025", "nowcast7_0.975")
+    
+    # true data
+    true_dat <- read.csv2(paste0("Nowcast_Hosp/03_Results/RKI_results/", days[[d]] + 40,
+                                 "/", cov_corr, "nowcasting_results_", location_RKI, 
+                                 "_", days[[d]] + 40, ".csv"))
+    
+    true_dat_day <- true_dat %>%
+      filter(date == days[[d]]) %>%
+      select("date", "age60", "reported", "reported7")
+    
+    now_list_recent[[d]] <- merge(now_dat_day, true_dat_day, by = c("date", "age60"))
   }
   
   # Datensätze erstellen
-  eval_data <- data.frame(do.call(rbind.data.frame, now_list_recent))
-  
-  # if (exists("old_data")) {
-  #   eval_data <- rbind(old_data, eval_data)
-  # }
-  
-  # new data
-  data_report <- read.csv2(paste0("Nowcast_Hosp/03_Results/RKI_results/", doa_last,
-                                  "/", cov_corr, "nowcasting_results_", location_RKI, 
-                                  "_", doa_last, ".csv")) %>%
-    select(c("date", "age60", "reported", "reported7"))
-  
-  # merge data
-  eval_data <- merge(eval_data, data_report, by = c("date", "age60"))
-  
-  eval_data <- eval_data %>%
+  eval_data <- data.frame(do.call(rbind.data.frame, now_list_recent)) %>%
     mutate(date = as.Date(date), age60 = as.factor(age60))
   
-  filename <- paste0("Nowcast_Hosp/03_Results/Evaluation/",  cov_corr, "eval_data_", location_RKI, 
-                     min(eval_data$date) + days(1), "_to_", doa_last - d_max, ".csv")
+  if (length(filename) != 0) {
+    eval_data <- rbind(old_eval_data, eval_data)
+  } 
   
-  write.csv2(x = eval_data, file = filename)
+  file <- paste0("Nowcast_Hosp/03_Results/", cov_corr, "evaluation_data.RDS")
+  saveRDS(object = eval_data, file = file)
   
-  evalPlot(eval_data, daily = plot_daily, base = base, location_RKI = location_RKI, 
-           correction = correction)
+  if (plot) {
+    plot_data <- eval_data %>% 
+      filter(date >= doa_last - d_max - 99)
+    
+    evalPlot(plot_data, location_RKI = location_RKI, 
+             correction = correction)
+  }
 }
 
 
-evalPlot <- function (data_eval, daily = F, base = "Meldedatum", 
-                      location_RKI = "DE", correction = T) {
+evalPlot <- function (data_eval, location_RKI = "DE", correction = T) {
   
   library(ggplot2)
   library(dplyr)
   
   cov_corr <- ifelse(correction, "coverage_correction_", "")
-  base <- ifelse(base == "Hospdatum", "Hospitalisierungsdatum", base)
   
-  
-  if (daily) {
-    # täglicher Vergleich
-    plot <- ggplot(data = data_eval) +
-      geom_line(aes(date, nowcast_est, col = "Nowcast")) +
-      geom_line(aes(date, reported, col = "Meldungen")) +
-      geom_ribbon(aes(date, ymin = nowcast_0.025, ymax = nowcast_0.975),
-                  fill = "cornflowerblue",
-                  col = NA,
-                  alpha = .4)
-    labs(x = base, 
-         y = "Hospitalisierungen")
-    
-  } else {
-    # 7-tägiger Vergleich
-    plot <- ggplot(data = data_eval) +
-      geom_line(aes(date, nowcast7_est, col = "Nowcast")) +
-      geom_line(aes(date, reported7, col = "Meldungen")) +
-      geom_ribbon(aes(date, ymin = nowcast7_0.025, ymax = nowcast7_0.975), 
-                  fill = "cornflowerblue", 
-                  col = NA,
-                  alpha = .4) +
-      labs(x = base, 
-           y = "7-tägige Hospitalisierungen")
-  }
-  
-  plot <- plot +
+  # täglicher Vergleich
+  plot_daily <- ggplot(data = data_eval) +
+    geom_line(aes(date, nowcast_est, col = "Nowcast")) +
+    geom_line(aes(date, reported, col = "Meldungen")) +
+    geom_ribbon(aes(date, ymin = nowcast_0.025, ymax = nowcast_0.975),
+                fill = "cornflowerblue",
+                col = NA,
+                alpha = .4)
+  labs(x = "Datum", 
+       y = "Hospitalisierungen") +
     facet_wrap(~age60, scale = "free") +
     theme_bw() +
     scale_x_date(date_labels = "%d.%m.%y") +
@@ -109,16 +96,41 @@ evalPlot <- function (data_eval, daily = F, base = "Meldedatum",
           axis.title = element_text(size = 14),
           legend.position = "top")
   
-  filename <- paste0("Nowcast_Hosp/03_Results/Evaluation/Plots/eval_plot_",
-                     cov_corr,
-                     ifelse(daily, "", "7"), "daily_",
-                     tolower(substr(base, 1, 4)),
-                     ".png")
   
-  ggsave(filename = filename, plot = plot)
-  return(plot)
+  # 7-tägiger Vergleich
+  plot_7days <- ggplot(data = data_eval) +
+    geom_line(aes(date, nowcast7_est, col = "Nowcast")) +
+    geom_line(aes(date, reported7, col = "Meldungen")) +
+    geom_ribbon(aes(date, ymin = nowcast7_0.025, ymax = nowcast7_0.975), 
+                fill = "cornflowerblue", 
+                col = NA,
+                alpha = .4) +
+    labs(x = "Datum", 
+         y = "7-tägige Hospitalisierungen") +
+    facet_wrap(~age60, scale = "free") +
+    theme_bw() +
+    scale_x_date(date_labels = "%d.%m.%y") +
+    scale_color_manual(name = NULL, values = c("Nowcast" = "cornflowerblue", 
+                                               "Meldungen" = "black")) +
+    theme(axis.text = element_text(size = 14), 
+          axis.title = element_text(size = 14),
+          legend.position = "top")
+  
+  
+  filename_daily <- 
+    paste0("Nowcast_Hosp/03_Results/RKI_results/", max(data_eval$date), "/eval_plot_",
+           cov_corr, "daily_", 
+           location_RKI, "_", max(data_eval$date),
+           ".png")
+  
+  filename_7days <- 
+    paste0("Nowcast_Hosp/03_Results/RKI_results/", max(data_eval$date), "/eval_plot_",
+           cov_corr, "7days_", 
+           location_RKI, "_", max(data_eval$date),
+           ".png")
+  
+  ggsave(filename = filename_daily, plot = plot_daily)
+  ggsave(filename = filename_7days, plot = plot_7days)
+  
 }
-
-
-
 
