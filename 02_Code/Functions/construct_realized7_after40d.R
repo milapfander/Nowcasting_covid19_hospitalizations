@@ -1,4 +1,4 @@
-# Script to generate dataset with realized values of corona infections after 40 days
+# Script to generate dataset with realized values of corona hospitalizations after 40 days
 # Germany has 7 age groups, the federal states only 3
 # returns a df with columns date, age, location, realized7
 
