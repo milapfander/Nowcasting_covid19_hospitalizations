@@ -12,10 +12,10 @@ library(checkmate)
 library(data.table)
 library(parallel)
 library(stringr)
-source("Nowcast_Hosp/02_Code/Functions/Fitting.R")
-source("Nowcast_Hosp/02_Code/Functions/formatting_RKI_data.R")
-source("Nowcast_Hosp/02_Code/Functions/Intervals.R")
-source("Nowcast_Hosp/02_Code/Functions/Evaluation.R")
+source("02_Code/Functions/Fitting.R")
+source("02_Code/Functions/formatting_RKI_data.R")
+source("02_Code/Functions/Intervals.R")
+source("02_Code/Functions/Evaluation.R")
 
 # Perform RKI nowcast
 doa <- Sys.Date()
@@ -28,7 +28,7 @@ locations <- c("DE", "DE-BB", "DE-BE", "DE-BW", "DE-BY", "DE-HE", # "DE-HB",
 
 # Download RKI data:
 download.file(url = "https://raw.githubusercontent.com/KITmetricslab/hospitalization-nowcast-hub/main/data-truth/COVID-19/COVID-19_hospitalizations_preprocessed.csv",
-              destfile = paste0("Nowcast_Hosp/01_Data/Data_RKI/COVID-19_hospitalizations_preprocessed_",
+              destfile = paste0("01_Data/Data_RKI/COVID-19_hospitalizations_preprocessed_",
                                 doa, ".csv"))
 
 
@@ -61,7 +61,7 @@ if (cores == 1) {
     print(location)
     age_groups <- if_else(location == "DE", "RKI", "split60")
     nowcasting(T_0 = T_0, doa = doa, d_max = d_max, base = "Meldedatum",
-               n = 100, LGL_data = FALSE, location_RKI = location,
+               n = 10, location_RKI = location,
                adjust_quantiles = TRUE, age_groups = age_groups,
                save_model = TRUE, save_bootstrap = FALSE)
   })

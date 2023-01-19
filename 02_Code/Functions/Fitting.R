@@ -24,7 +24,7 @@
 
 nowcasting <- function(doa, T_0, d_max, base = "Meldedatum", n = 100,
                        create_plots = FALSE, print_effects = FALSE,
-                       path = "Nowcast_Hosp/01_Data", save = TRUE,
+                       path = "01_Data", save = TRUE,
                        location_RKI = "DE", due_to_covid = FALSE,
                        quantiles = c(0.025, 0.1, 0.25, 0.5, 0.75, 0.8, 0.85, 0.9, 0.95, 0.975),
                        age_groups = "split60", adjust_quantiles = FALSE,
@@ -57,6 +57,7 @@ nowcasting <- function(doa, T_0, d_max, base = "Meldedatum", n = 100,
   
   # RKI data:
   # Read data:
+  doa <- doa + days(1)
   doa1 <- doa - days(1)
   data <- data.table(read.csv(paste0(path, "/Data_RKI/COVID-19_hospitalizations_preprocessed_", doa1, ".csv")))
   data <- data[data$age_group != "00+"]
