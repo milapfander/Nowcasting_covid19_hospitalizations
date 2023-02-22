@@ -125,6 +125,16 @@ nowcasting <- function(doa, T_0, d_max, base = "Meldedatum", n = 100,
                family = quasibinomial,
                data = data_nowcast_model[data_nowcast_model$d > 1, ])
   
+  # Refit the model with Pearson estimates for scale parameter if scale
+  # parameters seems to be too low (model does not converge):
+  if (model$scale < 0.001) {
+    model <- gam(formula = cbind(N_t_d, C_t_d - N_t_d) ~
+                   s(d, k = 5, bs = "ps", by = Altersgruppe) + t1 + t2  +
+                   Wochentag + Wochentag_hosp,
+                 family = quasibinomial, control = gam.control(scale.est = "pearson"),
+                 data = data_nowcast_model[data_nowcast_model$d > 1, ])
+  }
+  
   # Save model if requested:
   doa <- doa - days(1)
   if (save_model == TRUE) {
