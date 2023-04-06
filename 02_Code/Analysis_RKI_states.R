@@ -35,7 +35,7 @@ download.file(url = "https://raw.githubusercontent.com/KITmetricslab/hospitaliza
 # Function for printing log messages:
 print_logMessage <- function(diag_message, verbose_toLogFile = FALSE,
                              reset_logFile = FALSE) {
-  log_file <- "Nowcast_Hosp/nowcast_progress.log"
+  log_file <- "nowcast_progress.log"
   if (reset_logFile && file.exists(log_file)) { # make sure no old log file exists
     file.remove(log_file)
   }
@@ -149,3 +149,5 @@ if (cores == 1) {
     mc.cores = cores)
   }
 }
+
+
