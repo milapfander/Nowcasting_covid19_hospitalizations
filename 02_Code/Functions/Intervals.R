@@ -17,7 +17,7 @@ interval_correction <- function(doa, location, interval_vec = c(0.8, 0.95),
   }
   
   # today's data
-  data_today <- read_csv2(paste0("Nowcast_Hosp/03_Results/RKI_results", 
+  data_today <- read_csv2(paste0("03_Results/RKI_results", 
                                  retro, doa, "/nowcasting_results_",
                                  location, "_", doa, ".csv")) %>%
     mutate(horizon = as.numeric(doa - date), age60 = as.factor(age60))
