@@ -1,5 +1,5 @@
 retroEval <- function(data_RKI, date_retro,
-                      path = paste0("Nowcast_Hosp/03_Results/Evaluation/retrospective/retrospective_data_RKI_",
+                      path = paste0("03_Results/Evaluation/retrospective/retrospective_data_RKI_",
                                     date_retro, ".csv"),
                       save = T) {
   library(dplyr)

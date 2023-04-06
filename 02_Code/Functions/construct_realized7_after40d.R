@@ -8,7 +8,7 @@ library(dplyr)
 library(readr)
 library(stringr)
 library(reshape2)
-setwd("Nowcast_Hosp")
+setwd("")
 
 # date of preprocessed data
 doa <- Sys.Date()- days(1)

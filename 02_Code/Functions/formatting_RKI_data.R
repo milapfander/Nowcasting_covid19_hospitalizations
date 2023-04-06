@@ -4,8 +4,8 @@ formatting_RKI_data <- function(doa, locations, limit_factor = 0.9,
                                 retrospective = FALSE) {
 
   path <- ifelse(retrospective, 
-               "Nowcast_Hosp/03_Results/RKI_results_retrospective/", 
-               "Nowcast_Hosp/03_Results/RKI_results/")
+               "03_Results/RKI_results_retrospective/", 
+               "03_Results/RKI_results/")
   
   # Loop over all locations:
   data_long_all <- lapply(X = locations, FUN = function(location) {

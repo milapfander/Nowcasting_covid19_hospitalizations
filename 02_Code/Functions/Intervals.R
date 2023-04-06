@@ -24,7 +24,7 @@ interval_correction <- function(doa, location, interval_vec = c(0.8, 0.95),
   
   # Add realized data:
   location_RKI <- location
-  data_real <- read_csv(paste0("Nowcast_Hosp/01_Data/Data_RKI/COVID-19_hospitalizations_preprocessed_",
+  data_real <- read_csv(paste0("01_Data/Data_RKI/COVID-19_hospitalizations_preprocessed_",
                                doa, ".csv")) %>%
     mutate(age_group = if_else(condition = age_group == "00+", true = "alle",
                                false = age_group)) %>% 
@@ -63,7 +63,7 @@ interval_correction <- function(doa, location, interval_vec = c(0.8, 0.95),
   # read data from 3 to 1.5 months ago
   data_list <- lapply(X = dates, 
                       FUN = function(x) {
-                        read_csv2(paste0("Nowcast_Hosp/03_Results/RKI_results", 
+                        read_csv2(paste0("03_Results/RKI_results", 
                                          retro, x, "/nowcasting_results_",
                                          location, "_", x, ".csv")) %>%
                           mutate(horizon = as.numeric(x - date)) %>%
@@ -141,7 +141,7 @@ interval_correction <- function(doa, location, interval_vec = c(0.8, 0.95),
   data_today <- data_today %>% correct_zeros()
     
   write.csv2(x = data_today, 
-             file = paste0("Nowcast_Hosp/03_Results/RKI_results", 
+             file = paste0("03_Results/RKI_results", 
                            retro, doa, 
                            "/coverage_correction_nowcasting_results_", location, "_", doa, ".csv"),
              row.names = FALSE)

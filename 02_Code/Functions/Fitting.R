@@ -266,7 +266,7 @@ predict_nowcast <- function(model, data, doa, T_max, quantiles, n = 1000,
                             alpha = 0.05, adjust_quantiles = FALSE,
                             retrospective = FALSE,
                             save_bootstrap = FALSE, location_RKI = "DE",
-                            path = "Nowcast_Hosp/01_Data") {
+                            path = "01_Data") {
   
   # Extract newdata:
   newdata <- data %>% filter(t + d > T_max + 1)
