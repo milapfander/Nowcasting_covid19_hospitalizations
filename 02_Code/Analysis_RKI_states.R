@@ -19,11 +19,11 @@ source("02_Code/Functions/Evaluation.R")
 
 # Perform RKI nowcast
 doa <- Sys.Date()
-#doa <- as.Date("2022-09-26")
+#doa <- as.Date("2023-04-06")
 T_0 <- doa - days(56) # data of eight weeks
 d_max <- 40
-locations <- c("DE", "DE-BB", "DE-BE", "DE-BW", "DE-BY", "DE-HE", # "DE-HB",
-               "DE-HH", "DE-MV", "DE-NI", "DE-NW", "DE-RP", "DE-SH", #"DE-SL",
+locations <- c("DE", "DE-BB", "DE-BE", "DE-BW", "DE-BY", "DE-HE", "DE-HB",
+               "DE-HH", "DE-MV", "DE-NI", "DE-NW", "DE-RP", "DE-SH", "DE-SL",
                "DE-SN", "DE-ST", "DE-TH")
 
 # Download RKI data:
@@ -82,7 +82,7 @@ if (cores == 1) {
       print(location)
       age_groups <- if_else(location == "DE", "RKI", "split60")
       nowcasting(T_0 = T_0, doa = doa, d_max = d_max, base = "Meldedatum",
-                 n = 10000, LGL_data = FALSE, location_RKI = location,
+                 n = 10000, location_RKI = location,
                  adjust_quantiles = TRUE, age_groups = age_groups,
                  save_model = TRUE, save_bootstrap = TRUE)
     })
@@ -93,7 +93,7 @@ if (cores == 1) {
       print(location)
       age_groups <- if_else(location == "DE", "RKI", "split60")
       nowcasting(T_0 = T_0, doa = doa, d_max = d_max, base = "Meldedatum",
-                 n = 10000, LGL_data = FALSE, location_RKI = location,
+                 n = 10000, location_RKI = location,
                  adjust_quantiles = TRUE, age_groups = age_groups,
                  save_model = TRUE, save_bootstrap = TRUE)
     },
