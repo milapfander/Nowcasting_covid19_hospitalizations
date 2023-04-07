@@ -84,7 +84,7 @@ if (cores == 1) {
       nowcasting(T_0 = T_0, doa = doa, d_max = d_max, base = "Meldedatum",
                  n = 10000, location_RKI = location,
                  adjust_quantiles = TRUE, age_groups = age_groups,
-                 save_model = TRUE, save_bootstrap = TRUE)
+                 save_model = TRUE, save_bootstrap = FALSE)
     })
     stopCluster(local_cluster)
   } else {
@@ -95,7 +95,7 @@ if (cores == 1) {
       nowcasting(T_0 = T_0, doa = doa, d_max = d_max, base = "Meldedatum",
                  n = 10000, location_RKI = location,
                  adjust_quantiles = TRUE, age_groups = age_groups,
-                 save_model = TRUE, save_bootstrap = TRUE)
+                 save_model = TRUE, save_bootstrap = FALSE)
     },
     mc.cores = cores)
   }
