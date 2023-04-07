@@ -63,12 +63,17 @@ interval_correction <- function(doa, location, interval_vec = c(0.8, 0.95),
   # read data from 3 to 1.5 months ago
   data_list <- lapply(X = dates, 
                       FUN = function(x) {
-                        read_csv2(paste0("03_Results/RKI_results", 
-                                         retro, x, "/nowcasting_results_",
-                                         location, "_", x, ".csv")) %>%
-                          mutate(horizon = as.numeric(x - date)) %>%
-                          filter(horizon < 40)
-                        })
+                        file <- paste0("Nowcast_Hosp/03_Results/RKI_results", 
+                                       retro, x, "/nowcasting_results_",
+                                       location, "_", x, ".csv")
+                        if (file.exists(file)) {
+                          read_csv2(paste0("Nowcast_Hosp/03_Results/RKI_results", 
+                                           retro, x, "/nowcasting_results_",
+                                           location, "_", x, ".csv")) %>%
+                            mutate(horizon = as.numeric(x - date)) %>%
+                            filter(horizon < 40)
+                        }
+                      })
   
   for (interval in interval_vec) {
     quantile_colnames <- paste0("nowcast7_", 
