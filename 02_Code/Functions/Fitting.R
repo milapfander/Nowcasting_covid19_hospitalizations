@@ -43,6 +43,7 @@ nowcasting <- function(doa, T_0, d_max, base = "Meldedatum", n = 100,
   library(parallel)
   library(dplyr)
   
+  doa <- doa + days(1)
   T_max <- interval(T_0, doa) %/% days(1)
   dates <- seq(from = as.Date(T_0), to = as.Date(T_0) + days(T_max) - 1,
                by = "days")
@@ -57,7 +58,6 @@ nowcasting <- function(doa, T_0, d_max, base = "Meldedatum", n = 100,
   
   # RKI data:
   # Read data:
-  doa <- doa + days(1)
   doa1 <- doa - days(1)
   data <- data.table(read.csv(paste0(path, "/Data_RKI/COVID-19_hospitalizations_preprocessed_", doa1, ".csv")))
   data <- data[data$age_group != "00+"]
