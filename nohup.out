@@ -1,0 +1,3898 @@
+── Attaching packages ─────────────────────────────────────── tidyverse 1.3.2 ──
+✔ ggplot2 3.4.0      ✔ purrr   1.0.0 
+✔ tibble  3.1.8      ✔ dplyr   1.0.10
+✔ tidyr   1.2.1      ✔ stringr 1.5.0 
+✔ readr   2.1.3      ✔ forcats 0.5.2 
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+Loading required package: timechange
+
+Attaching package: ‘lubridate’
+
+The following objects are masked from ‘package:base’:
+
+    date, intersect, setdiff, union
+
+
+Attaching package: ‘git2r’
+
+The following object is masked from ‘package:dplyr’:
+
+    pull
+
+The following objects are masked from ‘package:purrr’:
+
+    is_empty, when
+
+
+Attaching package: ‘data.table’
+
+The following objects are masked from ‘package:lubridate’:
+
+    hour, isoweek, mday, minute, month, quarter, second, wday, week,
+    yday, year
+
+The following objects are masked from ‘package:dplyr’:
+
+    between, first, last
+
+The following object is masked from ‘package:purrr’:
+
+    transpose
+
+[1] "2023-04-06 23:41:14 CEST"
+[1] "2023-04-06 23:41:14 CEST"
+[1] "2023-04-06 21:41:14 UTC"
+[1] 0.0004286766
+trying URL 'https://raw.githubusercontent.com/KITmetricslab/hospitalization-nowcast-hub/main/data-truth/COVID-19/COVID-19_hospitalizations_preprocessed.csv'
+Content type 'text/plain; charset=utf-8' length 15863128 bytes (15.1 MB)
+==================================================
+downloaded 15.1 MB
+
+Error in file(file, "rt") : cannot open the connection
+Calls: data.table -> read.csv -> read.table -> file
+In addition: Warning message:
+In file(file, "rt") :
+  cannot open file '01_Data/Data_RKI/COVID-19_hospitalizations_preprocessed_2023-04-05.csv': No such file or directory
+Execution halted
+── Attaching packages ─────────────────────────────────────── tidyverse 1.3.2 ──
+✔ ggplot2 3.4.0      ✔ purrr   1.0.0 
+✔ tibble  3.1.8      ✔ dplyr   1.0.10
+✔ tidyr   1.2.1      ✔ stringr 1.5.0 
+✔ readr   2.1.3      ✔ forcats 0.5.2 
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+Loading required package: timechange
+
+Attaching package: ‘lubridate’
+
+The following objects are masked from ‘package:base’:
+
+    date, intersect, setdiff, union
+
+
+Attaching package: ‘git2r’
+
+The following object is masked from ‘package:dplyr’:
+
+    pull
+
+The following objects are masked from ‘package:purrr’:
+
+    is_empty, when
+
+
+Attaching package: ‘data.table’
+
+The following objects are masked from ‘package:lubridate’:
+
+    hour, isoweek, mday, minute, month, quarter, second, wday, week,
+    yday, year
+
+The following objects are masked from ‘package:dplyr’:
+
+    between, first, last
+
+The following object is masked from ‘package:purrr’:
+
+    transpose
+
+[1] "2023-04-06 23:42:15 CEST"
+[1] "2023-04-06 23:42:15 CEST"
+[1] "2023-04-06 21:42:15 UTC"
+[1] 0.0004360676
+trying URL 'https://raw.githubusercontent.com/KITmetricslab/hospitalization-nowcast-hub/main/data-truth/COVID-19/COVID-19_hospitalizations_preprocessed.csv'
+Content type 'text/plain; charset=utf-8' length 15863128 bytes (15.1 MB)
+==================================================
+downloaded 15.1 MB
+
+
+Attaching package: ‘magrittr’
+
+The following object is masked from ‘package:git2r’:
+
+    add
+
+The following object is masked from ‘package:purrr’:
+
+    set_names
+
+The following object is masked from ‘package:tidyr’:
+
+    extract
+
+Loading required package: nlme
+
+Attaching package: ‘nlme’
+
+The following object is masked from ‘package:dplyr’:
+
+    collapse
+
+This is mgcv 1.8-41. For overview type 'help("mgcv-package")'.
+Loading required package: sp
+Please note that rgdal will be retired during 2023,
+plan transition to sf/stars/terra functions using GDAL and PROJ
+at your earliest convenience.
+See https://r-spatial.org/r/2022/04/12/evolution.html and https://github.com/r-spatial/evolution
+rgdal: version: 1.6-3, (SVN revision 1187)
+Geospatial Data Abstraction Library extensions to R successfully loaded
+Loaded GDAL runtime: GDAL 3.0.4, released 2020/01/28
+Path to GDAL shared files: /usr/share/gdal
+GDAL binary built with GEOS: TRUE 
+Loaded PROJ runtime: Rel. 6.3.1, February 10th, 2020, [PJ_VERSION: 631]
+Path to PROJ shared files: /usr/share/proj
+Linking to sp version:1.5-1
+To mute warnings of possible GDAL/OSR exportToProj4() degradation,
+use options("rgdal_show_exportToProj4_warnings"="none") before loading sp or rgdal.
+trying URL 'https://raw.githubusercontent.com/KITmetricslab/hospitalization-nowcast-hub/main/data-truth/COVID-19/COVID-19_hospitalizations_preprocessed.csv'
+Content type 'text/plain; charset=utf-8' length 15863128 bytes (15.1 MB)
+==================================================
+downloaded 15.1 MB
+
+Error in file(file, ifelse(append, "a", "w")) : 
+  cannot open the connection
+Calls: source ... eval -> eval -> print_logMessage -> write -> cat -> file
+In addition: Warning messages:
+1: In file.create(log_file) :
+  cannot create file 'Nowcast_Hosp/nowcast_progress.log', reason 'No such file or directory'
+2: In file(file, ifelse(append, "a", "w")) :
+  cannot open file 'Nowcast_Hosp/nowcast_progress.log': No such file or directory
+Execution halted
+── Attaching packages ─────────────────────────────────────── tidyverse 1.3.2 ──
+✔ ggplot2 3.4.0      ✔ purrr   1.0.0 
+✔ tibble  3.1.8      ✔ dplyr   1.0.10
+✔ tidyr   1.2.1      ✔ stringr 1.5.0 
+✔ readr   2.1.3      ✔ forcats 0.5.2 
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+Loading required package: timechange
+
+Attaching package: ‘lubridate’
+
+The following objects are masked from ‘package:base’:
+
+    date, intersect, setdiff, union
+
+
+Attaching package: ‘git2r’
+
+The following object is masked from ‘package:dplyr’:
+
+    pull
+
+The following objects are masked from ‘package:purrr’:
+
+    is_empty, when
+
+
+Attaching package: ‘data.table’
+
+The following objects are masked from ‘package:lubridate’:
+
+    hour, isoweek, mday, minute, month, quarter, second, wday, week,
+    yday, year
+
+The following objects are masked from ‘package:dplyr’:
+
+    between, first, last
+
+The following object is masked from ‘package:purrr’:
+
+    transpose
+
+[1] "2023-04-06 23:46:10 CEST"
+[1] "2023-04-06 23:46:10 CEST"
+[1] "2023-04-06 21:46:10 UTC"
+[1] 0.0004410744
+trying URL 'https://raw.githubusercontent.com/KITmetricslab/hospitalization-nowcast-hub/main/data-truth/COVID-19/COVID-19_hospitalizations_preprocessed.csv'
+Content type 'text/plain; charset=utf-8' length 15863128 bytes (15.1 MB)
+==================================================
+downloaded 15.1 MB
+
+
+Attaching package: ‘magrittr’
+
+The following object is masked from ‘package:git2r’:
+
+    add
+
+The following object is masked from ‘package:purrr’:
+
+    set_names
+
+The following object is masked from ‘package:tidyr’:
+
+    extract
+
+Loading required package: nlme
+
+Attaching package: ‘nlme’
+
+The following object is masked from ‘package:dplyr’:
+
+    collapse
+
+This is mgcv 1.8-41. For overview type 'help("mgcv-package")'.
+Loading required package: sp
+Please note that rgdal will be retired during 2023,
+plan transition to sf/stars/terra functions using GDAL and PROJ
+at your earliest convenience.
+See https://r-spatial.org/r/2022/04/12/evolution.html and https://github.com/r-spatial/evolution
+rgdal: version: 1.6-3, (SVN revision 1187)
+Geospatial Data Abstraction Library extensions to R successfully loaded
+Loaded GDAL runtime: GDAL 3.0.4, released 2020/01/28
+Path to GDAL shared files: /usr/share/gdal
+GDAL binary built with GEOS: TRUE 
+Loaded PROJ runtime: Rel. 6.3.1, February 10th, 2020, [PJ_VERSION: 631]
+Path to PROJ shared files: /usr/share/proj
+Linking to sp version:1.5-1
+To mute warnings of possible GDAL/OSR exportToProj4() degradation,
+use options("rgdal_show_exportToProj4_warnings"="none") before loading sp or rgdal.
+trying URL 'https://raw.githubusercontent.com/KITmetricslab/hospitalization-nowcast-hub/main/data-truth/COVID-19/COVID-19_hospitalizations_preprocessed.csv'
+Content type 'text/plain; charset=utf-8' length 15863128 bytes (15.1 MB)
+==================================================
+downloaded 15.1 MB
+
+[1] "DE"
+[1] "DE-BB"
+[1] "DE-BE"
+[1] "DE-BW"
+[1] "DE-BY"
+[1] "DE-HE"
+[1] "DE-HH"
+[1] "DE-MV"
+[1] "DE-NI"
+[1] "DE"
+ℹ Using "','" as decimal and "'.'" as grouping mark. Use `read_delim()` for more control.
+Error: 'Nowcast_Hosp/03_Results/RKI_results/2023-04-06/nowcasting_results_DE_2023-04-06.csv' does not exist in current working directory ('/home/ubuntu/Nowcasting_covid19_hospitalizations').
+In addition: Warning message:
+In mclapply(X = locations, FUN = function(location) { :
+  all scheduled cores encountered errors in user code
+Execution halted
+── Attaching packages ─────────────────────────────────────── tidyverse 1.3.2 ──
+✔ ggplot2 3.4.0      ✔ purrr   1.0.0 
+✔ tibble  3.1.8      ✔ dplyr   1.0.10
+✔ tidyr   1.2.1      ✔ stringr 1.5.0 
+✔ readr   2.1.3      ✔ forcats 0.5.2 
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+Loading required package: timechange
+
+Attaching package: ‘lubridate’
+
+The following objects are masked from ‘package:base’:
+
+    date, intersect, setdiff, union
+
+
+Attaching package: ‘git2r’
+
+The following object is masked from ‘package:dplyr’:
+
+    pull
+
+The following objects are masked from ‘package:purrr’:
+
+    is_empty, when
+
+
+Attaching package: ‘data.table’
+
+The following objects are masked from ‘package:lubridate’:
+
+    hour, isoweek, mday, minute, month, quarter, second, wday, week,
+    yday, year
+
+The following objects are masked from ‘package:dplyr’:
+
+    between, first, last
+
+The following object is masked from ‘package:purrr’:
+
+    transpose
+
+[1] "2023-04-06 23:53:05 CEST"
+[1] "2023-04-06 23:53:05 CEST"
+[1] "2023-04-06 21:53:05 UTC"
+[1] 0.0005235672
+trying URL 'https://raw.githubusercontent.com/KITmetricslab/hospitalization-nowcast-hub/main/data-truth/COVID-19/COVID-19_hospitalizations_preprocessed.csv'
+Content type 'text/plain; charset=utf-8' length 15863128 bytes (15.1 MB)
+==================================================
+downloaded 15.1 MB
+
+
+Attaching package: ‘magrittr’
+
+The following object is masked from ‘package:git2r’:
+
+    add
+
+The following object is masked from ‘package:purrr’:
+
+    set_names
+
+The following object is masked from ‘package:tidyr’:
+
+    extract
+
+Loading required package: nlme
+
+Attaching package: ‘nlme’
+
+The following object is masked from ‘package:dplyr’:
+
+    collapse
+
+This is mgcv 1.8-41. For overview type 'help("mgcv-package")'.
+Loading required package: sp
+Please note that rgdal will be retired during 2023,
+plan transition to sf/stars/terra functions using GDAL and PROJ
+at your earliest convenience.
+See https://r-spatial.org/r/2022/04/12/evolution.html and https://github.com/r-spatial/evolution
+rgdal: version: 1.6-3, (SVN revision 1187)
+Geospatial Data Abstraction Library extensions to R successfully loaded
+Loaded GDAL runtime: GDAL 3.0.4, released 2020/01/28
+Path to GDAL shared files: /usr/share/gdal
+GDAL binary built with GEOS: TRUE 
+Loaded PROJ runtime: Rel. 6.3.1, February 10th, 2020, [PJ_VERSION: 631]
+Path to PROJ shared files: /usr/share/proj
+Linking to sp version:1.5-1
+To mute warnings of possible GDAL/OSR exportToProj4() degradation,
+use options("rgdal_show_exportToProj4_warnings"="none") before loading sp or rgdal.
+trying URL 'https://raw.githubusercontent.com/KITmetricslab/hospitalization-nowcast-hub/main/data-truth/COVID-19/COVID-19_hospitalizations_preprocessed.csv'
+Content type 'text/plain; charset=utf-8' length 15863128 bytes (15.1 MB)
+==================================================
+downloaded 15.1 MB
+
+[1] "DE"
+[1] "DE-BB"
+[1] "DE-BE"
+[1] "DE-BW"
+[1] "DE-BY"
+[1] "DE-HE"
+[1] "DE-HH"
+[1] "DE-MV"
+[1] "DE-NI"
+[1] "DE"
+ℹ Using "','" as decimal and "'.'" as grouping mark. Use `read_delim()` for more control.
+Error: 'Nowcast_Hosp/03_Results/RKI_results/2023-04-06/nowcasting_results_DE_2023-04-06.csv' does not exist in current working directory ('/home/ubuntu/Nowcasting_covid19_hospitalizations').
+In addition: Warning message:
+In mclapply(X = locations, FUN = function(location) { :
+  all scheduled cores encountered errors in user code
+Execution halted
+── Attaching packages ─────────────────────────────────────── tidyverse 1.3.2 ──
+✔ ggplot2 3.4.0      ✔ purrr   1.0.0 
+✔ tibble  3.1.8      ✔ dplyr   1.0.10
+✔ tidyr   1.2.1      ✔ stringr 1.5.0 
+✔ readr   2.1.3      ✔ forcats 0.5.2 
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+Loading required package: timechange
+
+Attaching package: ‘lubridate’
+
+The following objects are masked from ‘package:base’:
+
+    date, intersect, setdiff, union
+
+
+Attaching package: ‘git2r’
+
+The following object is masked from ‘package:dplyr’:
+
+    pull
+
+The following objects are masked from ‘package:purrr’:
+
+    is_empty, when
+
+
+Attaching package: ‘data.table’
+
+The following objects are masked from ‘package:lubridate’:
+
+    hour, isoweek, mday, minute, month, quarter, second, wday, week,
+    yday, year
+
+The following objects are masked from ‘package:dplyr’:
+
+    between, first, last
+
+The following object is masked from ‘package:purrr’:
+
+    transpose
+
+[1] "2023-04-06 23:58:41 CEST"
+[1] "2023-04-06 23:58:41 CEST"
+[1] "2023-04-06 21:58:41 UTC"
+[1] 0.000446558
+trying URL 'https://raw.githubusercontent.com/KITmetricslab/hospitalization-nowcast-hub/main/data-truth/COVID-19/COVID-19_hospitalizations_preprocessed.csv'
+Content type 'text/plain; charset=utf-8' length 15863128 bytes (15.1 MB)
+==================================================
+downloaded 15.1 MB
+
+
+Attaching package: ‘magrittr’
+
+The following object is masked from ‘package:git2r’:
+
+    add
+
+The following object is masked from ‘package:purrr’:
+
+    set_names
+
+The following object is masked from ‘package:tidyr’:
+
+    extract
+
+Loading required package: nlme
+
+Attaching package: ‘nlme’
+
+The following object is masked from ‘package:dplyr’:
+
+    collapse
+
+This is mgcv 1.8-41. For overview type 'help("mgcv-package")'.
+Loading required package: sp
+Please note that rgdal will be retired during 2023,
+plan transition to sf/stars/terra functions using GDAL and PROJ
+at your earliest convenience.
+See https://r-spatial.org/r/2022/04/12/evolution.html and https://github.com/r-spatial/evolution
+rgdal: version: 1.6-3, (SVN revision 1187)
+Geospatial Data Abstraction Library extensions to R successfully loaded
+Loaded GDAL runtime: GDAL 3.0.4, released 2020/01/28
+Path to GDAL shared files: /usr/share/gdal
+GDAL binary built with GEOS: TRUE 
+Loaded PROJ runtime: Rel. 6.3.1, February 10th, 2020, [PJ_VERSION: 631]
+Path to PROJ shared files: /usr/share/proj
+Linking to sp version:1.5-1
+To mute warnings of possible GDAL/OSR exportToProj4() degradation,
+use options("rgdal_show_exportToProj4_warnings"="none") before loading sp or rgdal.
+trying URL 'https://raw.githubusercontent.com/KITmetricslab/hospitalization-nowcast-hub/main/data-truth/COVID-19/COVID-19_hospitalizations_preprocessed.csv'
+Content type 'text/plain; charset=utf-8' length 15863128 bytes (15.1 MB)
+==================================================
+downloaded 15.1 MB
+
+[1] "DE"
+[1] "DE-BB"
+[1] "DE-BE"
+[1] "DE-BW"
+[1] "DE-BY"
+[1] "DE-HE"
+[1] "DE-HH"
+[1] "DE-MV"
+[1] "DE-NI"
+[1] "DE"
+ℹ Using "','" as decimal and "'.'" as grouping mark. Use `read_delim()` for more control.
+Error: '03_Results/RKI_results/2023-04-06/nowcasting_results_DE_2023-04-06.csv' does not exist in current working directory ('/home/ubuntu/Nowcasting_covid19_hospitalizations').
+In addition: Warning message:
+In mclapply(X = locations, FUN = function(location) { :
+  all scheduled cores encountered errors in user code
+Execution halted
+── Attaching packages ─────────────────────────────────────── tidyverse 1.3.2 ──
+✔ ggplot2 3.4.0      ✔ purrr   1.0.0 
+✔ tibble  3.1.8      ✔ dplyr   1.0.10
+✔ tidyr   1.2.1      ✔ stringr 1.5.0 
+✔ readr   2.1.3      ✔ forcats 0.5.2 
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+Loading required package: timechange
+
+Attaching package: ‘lubridate’
+
+The following objects are masked from ‘package:base’:
+
+    date, intersect, setdiff, union
+
+
+Attaching package: ‘git2r’
+
+The following object is masked from ‘package:dplyr’:
+
+    pull
+
+The following objects are masked from ‘package:purrr’:
+
+    is_empty, when
+
+
+Attaching package: ‘data.table’
+
+The following objects are masked from ‘package:lubridate’:
+
+    hour, isoweek, mday, minute, month, quarter, second, wday, week,
+    yday, year
+
+The following objects are masked from ‘package:dplyr’:
+
+    between, first, last
+
+The following object is masked from ‘package:purrr’:
+
+    transpose
+
+[1] "2023-04-07 00:07:48 CEST"
+[1] "2023-04-07 00:07:48 CEST"
+[1] "2023-04-06 22:07:48 UTC"
+[1] 0.0005202293
+trying URL 'https://raw.githubusercontent.com/KITmetricslab/hospitalization-nowcast-hub/main/data-truth/COVID-19/COVID-19_hospitalizations_preprocessed.csv'
+Content type 'text/plain; charset=utf-8' length 15863128 bytes (15.1 MB)
+==================================================
+downloaded 15.1 MB
+
+
+Attaching package: ‘magrittr’
+
+The following object is masked from ‘package:git2r’:
+
+    add
+
+The following object is masked from ‘package:purrr’:
+
+    set_names
+
+The following object is masked from ‘package:tidyr’:
+
+    extract
+
+Loading required package: nlme
+
+Attaching package: ‘nlme’
+
+The following object is masked from ‘package:dplyr’:
+
+    collapse
+
+This is mgcv 1.8-41. For overview type 'help("mgcv-package")'.
+Loading required package: sp
+Please note that rgdal will be retired during 2023,
+plan transition to sf/stars/terra functions using GDAL and PROJ
+at your earliest convenience.
+See https://r-spatial.org/r/2022/04/12/evolution.html and https://github.com/r-spatial/evolution
+rgdal: version: 1.6-3, (SVN revision 1187)
+Geospatial Data Abstraction Library extensions to R successfully loaded
+Loaded GDAL runtime: GDAL 3.0.4, released 2020/01/28
+Path to GDAL shared files: /usr/share/gdal
+GDAL binary built with GEOS: TRUE 
+Loaded PROJ runtime: Rel. 6.3.1, February 10th, 2020, [PJ_VERSION: 631]
+Path to PROJ shared files: /usr/share/proj
+Linking to sp version:1.5-1
+To mute warnings of possible GDAL/OSR exportToProj4() degradation,
+use options("rgdal_show_exportToProj4_warnings"="none") before loading sp or rgdal.
+trying URL 'https://raw.githubusercontent.com/KITmetricslab/hospitalization-nowcast-hub/main/data-truth/COVID-19/COVID-19_hospitalizations_preprocessed.csv'
+Content type 'text/plain; charset=utf-8' length 15863128 bytes (15.1 MB)
+==================================================
+downloaded 15.1 MB
+
+[1] "DE"
+[1] "DE-BB"
+[1] "DE-BE"
+[1] "DE-BW"
+[1] "DE-BY"
+[1] "DE-HE"
+[1] "DE-HH"
+[1] "DE-MV"
+[1] "DE-NI"
+[1] "DE"
+ℹ Using "','" as decimal and "'.'" as grouping mark. Use `read_delim()` for more control.
+Error: '03_Results/RKI_results/2023-04-06/nowcasting_results_DE_2023-04-06.csv' does not exist in current working directory ('/home/ubuntu/Nowcasting_covid19_hospitalizations').
+In addition: Warning message:
+In mclapply(X = locations, FUN = function(location) { :
+  all scheduled cores encountered errors in user code
+Execution halted
+── Attaching packages ─────────────────────────────────────── tidyverse 1.3.2 ──
+✔ ggplot2 3.4.0      ✔ purrr   1.0.0 
+✔ tibble  3.1.8      ✔ dplyr   1.0.10
+✔ tidyr   1.2.1      ✔ stringr 1.5.0 
+✔ readr   2.1.3      ✔ forcats 0.5.2 
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+Loading required package: timechange
+
+Attaching package: ‘lubridate’
+
+The following objects are masked from ‘package:base’:
+
+    date, intersect, setdiff, union
+
+
+Attaching package: ‘git2r’
+
+The following object is masked from ‘package:dplyr’:
+
+    pull
+
+The following objects are masked from ‘package:purrr’:
+
+    is_empty, when
+
+
+Attaching package: ‘data.table’
+
+The following objects are masked from ‘package:lubridate’:
+
+    hour, isoweek, mday, minute, month, quarter, second, wday, week,
+    yday, year
+
+The following objects are masked from ‘package:dplyr’:
+
+    between, first, last
+
+The following object is masked from ‘package:purrr’:
+
+    transpose
+
+[1] "2023-04-07 00:16:03 CEST"
+[1] "2023-04-07 00:16:03 CEST"
+[1] "2023-04-06 22:16:03 UTC"
+[1] 0.000505209
+trying URL 'https://raw.githubusercontent.com/KITmetricslab/hospitalization-nowcast-hub/main/data-truth/COVID-19/COVID-19_hospitalizations_preprocessed.csv'
+Content type 'text/plain; charset=utf-8' length 15863128 bytes (15.1 MB)
+==================================================
+downloaded 15.1 MB
+
+
+Attaching package: ‘magrittr’
+
+The following object is masked from ‘package:git2r’:
+
+    add
+
+The following object is masked from ‘package:purrr’:
+
+    set_names
+
+The following object is masked from ‘package:tidyr’:
+
+    extract
+
+Loading required package: nlme
+
+Attaching package: ‘nlme’
+
+The following object is masked from ‘package:dplyr’:
+
+    collapse
+
+This is mgcv 1.8-41. For overview type 'help("mgcv-package")'.
+Loading required package: sp
+Please note that rgdal will be retired during 2023,
+plan transition to sf/stars/terra functions using GDAL and PROJ
+at your earliest convenience.
+See https://r-spatial.org/r/2022/04/12/evolution.html and https://github.com/r-spatial/evolution
+rgdal: version: 1.6-3, (SVN revision 1187)
+Geospatial Data Abstraction Library extensions to R successfully loaded
+Loaded GDAL runtime: GDAL 3.0.4, released 2020/01/28
+Path to GDAL shared files: /usr/share/gdal
+GDAL binary built with GEOS: TRUE 
+Loaded PROJ runtime: Rel. 6.3.1, February 10th, 2020, [PJ_VERSION: 631]
+Path to PROJ shared files: /usr/share/proj
+Linking to sp version:1.5-1
+To mute warnings of possible GDAL/OSR exportToProj4() degradation,
+use options("rgdal_show_exportToProj4_warnings"="none") before loading sp or rgdal.
+trying URL 'https://raw.githubusercontent.com/KITmetricslab/hospitalization-nowcast-hub/main/data-truth/COVID-19/COVID-19_hospitalizations_preprocessed.csv'
+Content type 'text/plain; charset=utf-8' length 15863128 bytes (15.1 MB)
+==================================================
+downloaded 15.1 MB
+
+[1] "DE"
+[1] "DE-BB"
+[1] "DE-BE"
+[1] "DE-BW"
+[1] "DE-BY"
+[1] "DE-HE"
+[1] "DE-HB"
+[1] "DE-HH"
+[1] "DE-MV"
+`summarise()` has grouped output by 'base', 'Altersgruppe', 'd',
+'Meldedatum_Hosp'. You can override using the `.groups` argument.
+`summarise()` has grouped output by 'base', 'Altersgruppe', 'd',
+'Meldedatum_Hosp'. You can override using the `.groups` argument.
+`summarise()` has grouped output by 'base', 'Altersgruppe', 'd',
+'Meldedatum_Hosp'. You can override using the `.groups` argument.
+`summarise()` has grouped output by 'base', 'Altersgruppe', 'd',
+'Meldedatum_Hosp'. You can override using the `.groups` argument.
+`summarise()` has grouped output by 'base', 'Altersgruppe', 'd',
+'Meldedatum_Hosp'. You can override using the `.groups` argument.
+`summarise()` has grouped output by 'base', 'Altersgruppe', 'd',
+'Meldedatum_Hosp'. You can override using the `.groups` argument.
+`summarise()` has grouped output by 'base', 'Altersgruppe', 'd',
+'Meldedatum_Hosp'. You can override using the `.groups` argument.
+`summarise()` has grouped output by 'base', 'Altersgruppe', 'd',
+'Meldedatum_Hosp'. You can override using the `.groups` argument.
+`summarise()` has grouped output by 'base', 'Altersgruppe', 'd',
+'Meldedatum_Hosp'. You can override using the `.groups` argument.
+`summarise()` has grouped output by 'base'. You can override using the
+`.groups` argument.
+`summarise()` has grouped output by 'base'. You can override using the
+`.groups` argument.
+[1] 17
+`summarise()` has grouped output by 'base'. You can override using the
+`.groups` argument.
+`summarise()` has grouped output by 'base'. You can override using the
+`.groups` argument.
+`summarise()` has grouped output by 'base'. You can override using the
+`.groups` argument.
+`summarise()` has grouped output by 'base'. You can override using the
+`.groups` argument.
+[1] 17
+[1] 17
+`summarise()` has grouped output by 'base'. You can override using the
+`.groups` argument.
+`summarise()` has grouped output by 'base'. You can override using the
+`.groups` argument.
+[1] 17
+[1] 18
+[1] 18
+[1] 18
+`summarise()` has grouped output by 'base'. You can override using the
+`.groups` argument.
+`summarise()` has grouped output by 'base'. You can override using the
+`.groups` argument.
+[1] 17
+`summarise()` has grouped output by 'base'. You can override using the
+`.groups` argument.
+`summarise()` has grouped output by 'base'. You can override using the
+`.groups` argument.
+[1] 17
+`summarise()` has grouped output by 'base'. You can override using the
+`.groups` argument.
+`summarise()` has grouped output by 'base'. You can override using the
+`.groups` argument.
+`summarise()` has grouped output by 'base'. You can override using the
+`.groups` argument.
+`summarise()` has grouped output by 'base'. You can override using the
+`.groups` argument.
+[1] 17
+[1] 17
+[1] 18
+[1] 19
+[1] 18
+[1] 19
+[1] 19
+[1] 18
+[1] 18
+[1] 18
+[1] 19
+[1] 20
+[1] 19
+[1] 19
+[1] 20
+[1] 20
+[1] 19
+[1] 19
+[1] 20
+[1] 21
+[1] 20
+[1] 20
+[1] 20
+[1] 20
+[1] 21
+[1] 21
+[1] 21
+[1] 21
+[1] 22
+[1] 21
+[1] 21
+[1] 21
+[1] 22
+[1] 22
+[1] 22
+[1] 22
+[1] 22
+[1] 23
+[1] 22
+[1] 22
+[1] 23
+[1] 23
+[1] 24
+[1] 23
+[1] 23
+[1] 23
+[1] 23
+[1] 23
+[1] 24
+[1] 24
+[1] 25
+[1] 24
+[1] 24
+[1] 24
+[1] 24
+[1] 24
+[1] 25
+[1] 25
+[1] 26
+[1] 25
+[1] 25
+[1] 25
+[1] 25
+[1] 25
+[1] 26
+`summarise()` has grouped output by 'base'. You can override using the
+`.groups` argument.
+`summarise()` has grouped output by 'base'. You can override using the
+`.groups` argument.
+[1] 17
+[1] 26
+[1] 27
+[1] 26
+[1] 26
+[1] 26
+[1] 26
+[1] 26
+[1] 27
+[1] 27
+[1] 28
+[1] 27
+[1] 27
+[1] 27
+[1] 18
+[1] 27
+[1] 27
+[1] 28
+[1] 28
+[1] 29
+[1] 28
+[1] 28
+[1] 28
+[1] 28
+[1] 28
+[1] 29
+[1] 30
+[1] 29
+[1] 29
+[1] 29
+[1] 29
+[1] 19
+[1] 29
+[1] 29
+[1] 30
+[1] 31
+[1] 30
+[1] 30
+[1] 30
+[1] 30
+[1] 30
+[1] 30
+[1] 32
+[1] 31
+[1] 31
+[1] 31
+[1] 31
+[1] 31
+[1] 20
+[1] 31
+[1] 31
+[1] 32
+[1] 33
+[1] 32
+[1] 32
+[1] 32
+[1] 32
+[1] 32
+[1] 32
+[1] 33
+[1] 34
+[1] 33
+[1] 33
+[1] 33
+[1] 33
+[1] 33
+[1] 21
+[1] 33
+[1] 34
+[1] 35
+[1] 34
+[1] 34
+[1] 34
+[1] 34
+[1] 34
+[1] 34
+[1] 35
+[1] 36
+[1] 35
+[1] 35
+[1] 35
+[1] 35
+[1] 35
+[1] 36
+[1] 22
+[1] 37
+[1] 35
+[1] 36
+[1] 36
+[1] 36
+[1] 36
+[1] 36
+[1] 37
+[1] 38
+[1] 36
+[1] 37
+[1] 37
+[1] 37
+[1] 37
+[1] 37
+[1] 38
+[1] 39
+[1] 38
+[1] 37
+[1] 38
+[1] 23
+[1] 38
+[1] 38
+[1] 39
+[1] 40
+[1] 38
+[1] 39
+[1] 39
+[1] 38
+[1] 39
+[1] 40
+[1] 39
+[1] 41
+[1] 39
+[1] 24
+[1] 40
+[1] 40
+[1] 39
+[1] 40
+[1] 41
+[1] 40
+[1] 42
+[1] 41
+[1] 41
+[1] 40
+[1] 40
+[1] 41
+[1] 42
+[1] 43
+[1] 41
+[1] 25
+[1] 42
+[1] 42
+[1] 41
+[1] 41
+[1] 42
+[1] 43
+[1] 44
+[1] 42
+[1] 43
+[1] 43
+[1] 42
+[1] 42
+[1] 43
+[1] 44
+[1] 26
+[1] 45
+[1] 44
+[1] 43
+[1] 44
+[1] 43
+[1] 43
+[1] 44
+[1] 45
+[1] 46
+[1] 45
+[1] 44
+[1] 45
+[1] 44
+[1] 44
+[1] 45
+[1] 27
+[1] 46
+[1] 47
+[1] 46
+[1] 45
+[1] 46
+[1] 45
+[1] 46
+[1] 45
+[1] 47
+[1] 48
+[1] 47
+[1] 46
+[1] 47
+[1] 46
+[1] 47
+[1] 46
+[1] 28
+[1] 48
+[1] 49
+[1] 48
+[1] 47
+[1] 48
+[1] 48
+[1] 47
+[1] 47
+[1] 49
+[1] 50
+[1] 49
+[1] 48
+[1] 49
+[1] 49
+[1] 48
+[1] 48
+[1] 29
+[1] 50
+[1] 51
+[1] 50
+[1] 50
+[1] 49
+[1] 49
+[1] 50
+[1] 51
+[1] 49
+[1] 52
+[1] 51
+[1] 51
+[1] 50
+[1] 50
+[1] 51
+[1] 30
+[1] 52
+[1] 50
+[1] 53
+[1] 52
+[1] 52
+[1] 51
+[1] 51
+[1] 53
+[1] 52
+[1] 51
+[1] 54
+[1] 53
+[1] 53
+[1] 52
+[1] 52
+[1] 54
+[1] 31
+[1] 53
+[1] 52
+[1] 55
+[1] 54
+[1] 54
+[1] 53
+[1] 53
+[1] 55
+[1] 54
+[1] 56
+[1] 53
+[1] 55
+[1] 55
+[1] 54
+[1] 56
+[1] 54
+[1] 32
+[1] 55
+[1] 54
+`summarise()` has grouped output by 'Altersgruppe'. You can override using the
+`.groups` argument.
+[1] 56
+[1] 56
+[1] 55
+[1] 55
+`summarise()` has grouped output by 'Altersgruppe'. You can override using the
+`.groups` argument.
+[1] "DE-ST"
+[1] 56
+[1] 55
+`summarise()` has grouped output by 'base', 'Altersgruppe', 'd',
+'Meldedatum_Hosp'. You can override using the `.groups` argument.
+`summarise()` has grouped output by 'Altersgruppe'. You can override using the
+`.groups` argument.
+[1] "DE-SL"
+`summarise()` has grouped output by 'base', 'Altersgruppe', 'd',
+'Meldedatum_Hosp'. You can override using the `.groups` argument.
+`summarise()` has grouped output by 'Altersgruppe'. You can override using the
+`.groups` argument.
+[1] "DE-RP"
+`summarise()` has grouped output by 'base', 'Altersgruppe', 'd',
+'Meldedatum_Hosp'. You can override using the `.groups` argument.
+[1] 56
+`summarise()` has grouped output by 'base'. You can override using the
+`.groups` argument.
+`summarise()` has grouped output by 'base'. You can override using the
+`.groups` argument.
+[1] 17
+[1] 56
+[1] 18
+[1] 33
+[1] 56
+[1] 19
+`summarise()` has grouped output by 'base'. You can override using the
+`.groups` argument.
+`summarise()` has grouped output by 'base'. You can override using the
+`.groups` argument.
+[1] 17
+[1] 20
+[1] 18
+`summarise()` has grouped output by 'base'. You can override using the
+`.groups` argument.
+`summarise()` has grouped output by 'base'. You can override using the
+`.groups` argument.
+[1] 17
+`summarise()` has grouped output by 'Altersgruppe'. You can override using the
+`.groups` argument.
+[1] 19
+[1] 21
+[1] "DE-NW"
+`summarise()` has grouped output by 'base', 'Altersgruppe', 'd',
+'Meldedatum_Hosp'. You can override using the `.groups` argument.
+[1] 20
+[1] 18
+[1] 22
+[1] 21
+[1] 19
+[1] 20
+[1] 22
+[1] 23
+[1] 21
+[1] 23
+[1] 24
+`summarise()` has grouped output by 'Altersgruppe'. You can override using the
+`.groups` argument.
+[1] "DE-TH"
+[1] 24
+`summarise()` has grouped output by 'base', 'Altersgruppe', 'd',
+'Meldedatum_Hosp'. You can override using the `.groups` argument.
+[1] 22
+`summarise()` has grouped output by 'base'. You can override using the
+`.groups` argument.
+`summarise()` has grouped output by 'base'. You can override using the
+`.groups` argument.
+[1] 17
+`summarise()` has grouped output by 'Altersgruppe'. You can override using the
+`.groups` argument.
+[1] 25
+[1] "DE-SN"
+`summarise()` has grouped output by 'Altersgruppe'. You can override using the
+`.groups` argument.
+[1] "DE-SH"
+[1] 25
+`summarise()` has grouped output by 'base', 'Altersgruppe', 'd',
+'Meldedatum_Hosp'. You can override using the `.groups` argument.
+[1] 23
+[1] 18
+`summarise()` has grouped output by 'base', 'Altersgruppe', 'd',
+'Meldedatum_Hosp'. You can override using the `.groups` argument.
+[1] 19
+[1] 26
+[1] 26
+[1] 24
+[1] 20
+[1] 25
+[1] 27
+[1] 27
+[1] 21
+`summarise()` has grouped output by 'base'. You can override using the
+`.groups` argument.
+`summarise()` has grouped output by 'base'. You can override using the
+`.groups` argument.
+[1] 17
+[1] 18
+[1] 22
+[1] 26
+[1] 19
+`summarise()` has grouped output by 'base'. You can override using the
+`.groups` argument.
+`summarise()` has grouped output by 'base'. You can override using the
+`.groups` argument.
+[1] 17
+[1] 28
+`summarise()` has grouped output by 'base'. You can override using the
+`.groups` argument.
+`summarise()` has grouped output by 'base'. You can override using the
+`.groups` argument.
+[1] 17
+[1] 28
+[1] 18
+[1] 20
+[1] 18
+[1] 23
+[1] 34
+[1] 19
+[1] 27
+[1] 19
+[1] 21
+[1] 29
+[1] 20
+[1] 29
+[1] 24
+[1] 20
+[1] 22
+[1] 21
+[1] 28
+[1] 21
+[1] 30
+[1] 25
+[1] 23
+[1] 22
+[1] 30
+[1] 22
+[1] 29
+[1] 24
+[1] 26
+[1] 23
+[1] 31
+[1] 23
+[1] 25
+[1] 31
+[1] 24
+[1] 27
+[1] 24
+[1] 30
+[1] 32
+[1] 26
+[1] 25
+[1] 25
+[1] 28
+[1] 32
+[1] 31
+[1] 26
+[1] 27
+[1] 33
+[1] 26
+[1] 29
+[1] 27
+[1] 28
+[1] 32
+[1] 27
+[1] 33
+[1] 34
+[1] 28
+[1] 29
+[1] 30
+[1] 28
+[1] 33
+[1] 34
+[1] 29
+[1] 35
+[1] 30
+[1] 35
+[1] 31
+[1] 29
+[1] 30
+[1] 34
+[1] 31
+[1] 35
+[1] 36
+[1] 30
+[1] 32
+[1] 31
+[1] 32
+[1] 35
+[1] 31
+[1] 37
+[1] 36
+[1] 33
+[1] 32
+[1] 33
+[1] 36
+[1] 32
+[1] 38
+[1] 34
+[1] 33
+[1] 37
+[1] 34
+[1] 33
+[1] 37
+[1] 34
+[1] 39
+[1] 35
+[1] 38
+[1] 35
+[1] 34
+[1] 38
+[1] 35
+[1] 40
+[1] 36
+[1] 36
+[1] 36
+[1] 39
+[1] 35
+[1] 36
+[1] 39
+[1] 41
+[1] 37
+[1] 37
+[1] 36
+[1] 40
+[1] 37
+[1] 40
+[1] 42
+[1] 38
+[1] 38
+[1] 37
+[1] 38
+[1] 41
+[1] 41
+[1] 43
+[1] 39
+[1] 39
+[1] 38
+[1] 39
+[1] 42
+[1] 42
+[1] 40
+[1] 44
+[1] 40
+[1] 39
+[1] 40
+[1] 37
+[1] 43
+[1] 41
+[1] 45
+[1] 43
+[1] 41
+[1] 40
+[1] 41
+[1] 44
+[1] 42
+[1] 46
+[1] 42
+[1] 44
+[1] 41
+[1] 42
+[1] 43
+[1] 45
+[1] 47
+[1] 43
+[1] 42
+[1] 45
+[1] 43
+[1] 44
+[1] 48
+[1] 44
+[1] 46
+[1] 43
+[1] 44
+[1] 46
+[1] 38
+[1] 45
+[1] 49
+[1] 45
+[1] 47
+[1] 44
+[1] 45
+[1] 47
+[1] 46
+[1] 50
+[1] 46
+[1] 45
+[1] 46
+[1] 48
+[1] 48
+[1] 47
+[1] 51
+[1] 47
+[1] 46
+[1] 47
+[1] 49
+[1] 49
+[1] 48
+[1] 52
+[1] 48
+[1] 47
+[1] 48
+[1] 39
+[1] 50
+[1] 50
+[1] 49
+[1] 53
+[1] 49
+[1] 48
+[1] 49
+[1] 51
+[1] 51
+[1] 50
+[1] 54
+[1] 50
+[1] 49
+[1] 50
+[1] 52
+[1] 52
+[1] 51
+[1] 55
+[1] 51
+[1] 50
+[1] 51
+[1] 53
+[1] 53
+[1] 40
+[1] 52
+[1] 56
+[1] 52
+[1] 51
+[1] 52
+[1] 54
+[1] 54
+[1] 53
+`summarise()` has grouped output by 'Altersgruppe'. You can override using the
+`.groups` argument.
+[1] 53
+[1] 52
+[1] 53
+[1] 55
+[1] 54
+[1] 55
+[1] 54
+[1] 53
+[1] 54
+[1] 56
+[1] 55
+[1] 56
+[1] 41
+[1] 55
+[1] 54
+[1] 55
+[1] 56
+`summarise()` has grouped output by 'Altersgruppe'. You can override using the
+`.groups` argument.
+`summarise()` has grouped output by 'Altersgruppe'. You can override using the
+`.groups` argument.
+[1] 56
+[1] 55
+[1] 56
+`summarise()` has grouped output by 'Altersgruppe'. You can override using the
+`.groups` argument.
+[1] 56
+`summarise()` has grouped output by 'Altersgruppe'. You can override using the
+`.groups` argument.
+`summarise()` has grouped output by 'Altersgruppe'. You can override using the
+`.groups` argument.
+[1] 42
+`summarise()` has grouped output by 'Altersgruppe'. You can override using the
+`.groups` argument.
+[1] 43
+[1] 44
+[1] 45
+[1] 46
+[1] 47
+[1] 48
+[1] 49
+[1] 50
+[1] 51
+[1] 52
+[1] 53
+[1] 54
+[1] 55
+[1] 56
+`summarise()` has grouped output by 'Altersgruppe'. You can override using the
+`.groups` argument.
+[1] "DE-NI"
+`summarise()` has grouped output by 'base', 'Altersgruppe', 'd',
+'Meldedatum_Hosp'. You can override using the `.groups` argument.
+`summarise()` has grouped output by 'base'. You can override using the
+`.groups` argument.
+`summarise()` has grouped output by 'base'. You can override using the
+`.groups` argument.
+[1] 17
+[1] 18
+[1] 19
+[1] 20
+[1] 21
+[1] 22
+[1] 23
+[1] 24
+[1] 25
+[1] 26
+[1] 27
+[1] 28
+[1] 29
+[1] 30
+[1] 31
+[1] 32
+[1] 33
+[1] 34
+[1] 35
+[1] 36
+[1] 37
+[1] 38
+[1] 39
+[1] 40
+[1] 41
+[1] 42
+[1] 43
+[1] 44
+[1] 45
+[1] 46
+[1] 47
+[1] 48
+[1] 49
+[1] 50
+[1] 51
+[1] 52
+[1] 53
+[1] 54
+[1] 55
+[1] 56
+`summarise()` has grouped output by 'Altersgruppe'. You can override using the
+`.groups` argument.
+[1] "DE"
+ℹ Using "','" as decimal and "'.'" as grouping mark. Use `read_delim()` for more control.
+Rows: 5110 Columns: 37
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ";"
+chr   (1): age60
+dbl  (35): reported, nowcast_est, nowcast_0.025, nowcast_0.1, nowcast_0.25, ...
+date  (1): date
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+Rows: 86989 Columns: 85
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr   (2): location, age_group
+dbl  (82): value_0d, value_1d, value_2d, value_3d, value_4d, value_5d, value...
+date  (1): date
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+`summarise()` has grouped output by 'date'. You can override using the
+`.groups` argument.
+Joining, by = c("date", "age60")
+ℹ Using "','" as decimal and "'.'" as grouping mark. Use `read_delim()` for more control.
+Error: '03_Results/RKI_results/2022-12-28/nowcasting_results_DE_2022-12-28.csv' does not exist in current working directory ('/home/ubuntu/Nowcasting_covid19_hospitalizations').
+In addition: Warning message:
+In melt(data = data_real, id.vars = c("date", "age_group", "location"),  :
+  The melt generic in data.table has been passed a tbl_df and will attempt to redirect to the relevant reshape2 method; please note that reshape2 is deprecated, and this redirection is now deprecated as well. To continue using melt methods from reshape2 while both libraries are attached, e.g. melt.list, you can prepend the namespace like reshape2::melt(data_real). In the next version, this warning will become an error.
+Execution halted
+── Attaching packages ─────────────────────────────────────── tidyverse 1.3.2 ──
+✔ ggplot2 3.4.0      ✔ purrr   1.0.0 
+✔ tibble  3.1.8      ✔ dplyr   1.0.10
+✔ tidyr   1.2.1      ✔ stringr 1.5.0 
+✔ readr   2.1.3      ✔ forcats 0.5.2 
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+Loading required package: timechange
+
+Attaching package: ‘lubridate’
+
+The following objects are masked from ‘package:base’:
+
+    date, intersect, setdiff, union
+
+
+Attaching package: ‘git2r’
+
+The following object is masked from ‘package:dplyr’:
+
+    pull
+
+The following objects are masked from ‘package:purrr’:
+
+    is_empty, when
+
+
+Attaching package: ‘data.table’
+
+The following objects are masked from ‘package:lubridate’:
+
+    hour, isoweek, mday, minute, month, quarter, second, wday, week,
+    yday, year
+
+The following objects are masked from ‘package:dplyr’:
+
+    between, first, last
+
+The following object is masked from ‘package:purrr’:
+
+    transpose
+
+[1] "2023-04-07 12:48:56 CEST"
+[1] "2023-04-07 12:48:56 CEST"
+[1] "2023-04-07 10:48:56 UTC"
+[1] 0.0004601479
+trying URL 'https://raw.githubusercontent.com/KITmetricslab/hospitalization-nowcast-hub/main/data-truth/COVID-19/COVID-19_hospitalizations_preprocessed.csv'
+Content type 'text/plain; charset=utf-8' length 15885366 bytes (15.1 MB)
+==================================================
+downloaded 15.1 MB
+
+
+Attaching package: ‘magrittr’
+
+The following object is masked from ‘package:git2r’:
+
+    add
+
+The following object is masked from ‘package:purrr’:
+
+    set_names
+
+The following object is masked from ‘package:tidyr’:
+
+    extract
+
+Loading required package: nlme
+
+Attaching package: ‘nlme’
+
+The following object is masked from ‘package:dplyr’:
+
+    collapse
+
+This is mgcv 1.8-41. For overview type 'help("mgcv-package")'.
+Loading required package: sp
+Please note that rgdal will be retired during 2023,
+plan transition to sf/stars/terra functions using GDAL and PROJ
+at your earliest convenience.
+See https://r-spatial.org/r/2022/04/12/evolution.html and https://github.com/r-spatial/evolution
+rgdal: version: 1.6-3, (SVN revision 1187)
+Geospatial Data Abstraction Library extensions to R successfully loaded
+Loaded GDAL runtime: GDAL 3.0.4, released 2020/01/28
+Path to GDAL shared files: /usr/share/gdal
+GDAL binary built with GEOS: TRUE 
+Loaded PROJ runtime: Rel. 6.3.1, February 10th, 2020, [PJ_VERSION: 631]
+Path to PROJ shared files: /usr/share/proj
+Linking to sp version:1.5-1
+To mute warnings of possible GDAL/OSR exportToProj4() degradation,
+use options("rgdal_show_exportToProj4_warnings"="none") before loading sp or rgdal.
+trying URL 'https://raw.githubusercontent.com/KITmetricslab/hospitalization-nowcast-hub/main/data-truth/COVID-19/COVID-19_hospitalizations_preprocessed.csv'
+Content type 'text/plain; charset=utf-8' length 15885366 bytes (15.1 MB)
+==================================================
+downloaded 15.1 MB
+
+[1] "DE"
+[1] "DE-BB"
+[1] "DE-BE"
+[1] "DE-BW"
+[1] "DE-BY"
+[1] "DE-HE"
+[1] "DE-HB"
+[1] "DE-HH"
+[1] "DE-MV"
+`summarise()` has grouped output by 'base', 'Altersgruppe', 'd',
+'Meldedatum_Hosp'. You can override using the `.groups` argument.
+`summarise()` has grouped output by 'base', 'Altersgruppe', 'd',
+'Meldedatum_Hosp'. You can override using the `.groups` argument.
+`summarise()` has grouped output by 'base', 'Altersgruppe', 'd',
+'Meldedatum_Hosp'. You can override using the `.groups` argument.
+`summarise()` has grouped output by 'base', 'Altersgruppe', 'd',
+'Meldedatum_Hosp'. You can override using the `.groups` argument.
+`summarise()` has grouped output by 'base', 'Altersgruppe', 'd',
+'Meldedatum_Hosp'. You can override using the `.groups` argument.
+`summarise()` has grouped output by 'base', 'Altersgruppe', 'd',
+'Meldedatum_Hosp'. You can override using the `.groups` argument.
+`summarise()` has grouped output by 'base', 'Altersgruppe', 'd',
+'Meldedatum_Hosp'. You can override using the `.groups` argument.
+`summarise()` has grouped output by 'base', 'Altersgruppe', 'd',
+'Meldedatum_Hosp'. You can override using the `.groups` argument.
+`summarise()` has grouped output by 'base', 'Altersgruppe', 'd',
+'Meldedatum_Hosp'. You can override using the `.groups` argument.
+`summarise()` has grouped output by 'base'. You can override using the
+`.groups` argument.
+`summarise()` has grouped output by 'base'. You can override using the
+`.groups` argument.
+[1] 17
+`summarise()` has grouped output by 'base'. You can override using the
+`.groups` argument.
+`summarise()` has grouped output by 'base'. You can override using the
+`.groups` argument.
+[1] 17
+`summarise()` has grouped output by 'base'. You can override using the
+`.groups` argument.
+`summarise()` has grouped output by 'base'. You can override using the
+`.groups` argument.
+[1] 17
+`summarise()` has grouped output by 'base'. You can override using the
+`.groups` argument.
+`summarise()` has grouped output by 'base'. You can override using the
+`.groups` argument.
+[1] 17
+`summarise()` has grouped output by 'base'. You can override using the
+`.groups` argument.
+`summarise()` has grouped output by 'base'. You can override using the
+`.groups` argument.
+[1] 17
+[1] 18
+[1] 18
+`summarise()` has grouped output by 'base'. You can override using the
+`.groups` argument.
+`summarise()` has grouped output by 'base'. You can override using the
+`.groups` argument.
+`summarise()` has grouped output by 'base'. You can override using the
+`.groups` argument.
+[1] 17
+`summarise()` has grouped output by 'base'. You can override using the
+`.groups` argument.
+[1] 17
+`summarise()` has grouped output by 'base'. You can override using the
+`.groups` argument.
+`summarise()` has grouped output by 'base'. You can override using the
+`.groups` argument.
+[1] 17
+[1] 18
+[1] 18
+[1] 18
+[1] 18
+[1] 19
+[1] 18
+[1] 19
+[1] 18
+[1] 19
+[1] 19
+[1] 19
+[1] 19
+[1] 19
+[1] 19
+[1] 20
+[1] 20
+[1] 20
+[1] 20
+[1] 20
+[1] 20
+[1] 20
+[1] 20
+[1] 21
+[1] 21
+[1] 21
+[1] 21
+[1] 21
+[1] 21
+[1] 21
+[1] 21
+[1] 22
+[1] 22
+[1] 22
+[1] 22
+[1] 22
+[1] 22
+[1] 22
+[1] 22
+[1] 23
+[1] 23
+[1] 23
+[1] 23
+[1] 23
+[1] 23
+[1] 23
+[1] 23
+[1] 24
+[1] 24
+[1] 24
+[1] 24
+[1] 24
+[1] 24
+[1] 24
+[1] 24
+[1] 25
+[1] 25
+[1] 25
+[1] 25
+[1] 25
+[1] 25
+[1] 26
+[1] 25
+[1] 25
+[1] 26
+[1] 26
+[1] 26
+[1] 26
+`summarise()` has grouped output by 'base'. You can override using the
+`.groups` argument.
+`summarise()` has grouped output by 'base'. You can override using the
+`.groups` argument.
+[1] 17
+[1] 27
+[1] 26
+[1] 26
+[1] 26
+[1] 27
+[1] 27
+[1] 27
+[1] 27
+[1] 28
+[1] 27
+[1] 27
+[1] 27
+[1] 18
+[1] 28
+[1] 28
+[1] 28
+[1] 28
+[1] 29
+[1] 28
+[1] 28
+[1] 28
+[1] 29
+[1] 29
+[1] 29
+[1] 29
+[1] 30
+[1] 19
+[1] 29
+[1] 29
+[1] 29
+[1] 30
+[1] 30
+[1] 30
+[1] 30
+[1] 31
+[1] 30
+[1] 30
+[1] 30
+[1] 31
+[1] 31
+[1] 31
+[1] 31
+[1] 32
+[1] 20
+[1] 31
+[1] 31
+[1] 31
+[1] 32
+[1] 32
+[1] 32
+[1] 32
+[1] 33
+[1] 32
+[1] 33
+[1] 32
+[1] 33
+[1] 32
+[1] 33
+[1] 33
+[1] 34
+[1] 21
+[1] 33
+[1] 34
+[1] 34
+[1] 33
+[1] 34
+[1] 33
+[1] 34
+[1] 35
+[1] 35
+[1] 35
+[1] 34
+[1] 34
+[1] 35
+[1] 34
+[1] 35
+[1] 36
+[1] 22
+[1] 36
+[1] 36
+[1] 35
+[1] 36
+[1] 35
+[1] 36
+[1] 35
+[1] 37
+[1] 37
+[1] 37
+[1] 36
+[1] 37
+[1] 36
+[1] 37
+[1] 36
+[1] 38
+[1] 23
+[1] 38
+[1] 38
+[1] 38
+[1] 37
+[1] 37
+[1] 38
+[1] 39
+[1] 37
+[1] 39
+[1] 39
+[1] 39
+[1] 38
+[1] 38
+[1] 39
+[1] 40
+[1] 38
+[1] 24
+[1] 40
+[1] 40
+[1] 40
+[1] 41
+[1] 39
+[1] 39
+[1] 40
+[1] 39
+[1] 41
+[1] 41
+[1] 41
+[1] 42
+[1] 40
+[1] 40
+[1] 41
+[1] 40
+[1] 25
+[1] 43
+[1] 42
+[1] 42
+[1] 42
+[1] 41
+[1] 41
+[1] 42
+[1] 41
+[1] 44
+[1] 43
+[1] 43
+[1] 43
+[1] 42
+[1] 42
+[1] 43
+[1] 42
+[1] 26
+[1] 45
+[1] 44
+[1] 44
+[1] 43
+[1] 43
+[1] 44
+[1] 44
+[1] 43
+[1] 46
+[1] 45
+[1] 45
+[1] 44
+[1] 45
+[1] 44
+[1] 45
+[1] 44
+[1] 27
+[1] 47
+[1] 46
+[1] 46
+[1] 45
+[1] 46
+[1] 45
+[1] 46
+[1] 45
+[1] 48
+[1] 47
+[1] 47
+[1] 46
+[1] 47
+[1] 46
+[1] 47
+[1] 49
+[1] 46
+[1] 28
+[1] 48
+[1] 48
+[1] 47
+[1] 48
+[1] 47
+[1] 50
+[1] 48
+[1] 47
+[1] 49
+[1] 48
+[1] 49
+[1] 49
+[1] 51
+[1] 48
+[1] 49
+[1] 48
+[1] 29
+[1] 50
+[1] 49
+[1] 50
+[1] 50
+[1] 52
+[1] 49
+[1] 50
+[1] 49
+[1] 51
+[1] 50
+[1] 53
+[1] 51
+[1] 51
+[1] 50
+[1] 51
+[1] 50
+[1] 30
+[1] 52
+[1] 54
+[1] 51
+[1] 52
+[1] 52
+[1] 51
+[1] 52
+[1] 51
+[1] 55
+[1] 53
+[1] 52
+[1] 53
+[1] 52
+[1] 53
+[1] 53
+[1] 52
+[1] 31
+[1] 56
+[1] 54
+[1] 53
+[1] 54
+[1] 53
+[1] 54
+[1] 54
+[1] 53
+`summarise()` has grouped output by 'Altersgruppe'. You can override using the
+`.groups` argument.
+[1] 55
+[1] 54
+[1] 55
+[1] 54
+[1] 55
+[1] 55
+[1] 54
+[1] 32
+[1] 56
+[1] 55
+[1] 56
+[1] 55
+[1] 56
+[1] 56
+[1] 55
+[1] 56
+`summarise()` has grouped output by 'Altersgruppe'. You can override using the
+`.groups` argument.
+[1] "DE-RP"
+`summarise()` has grouped output by 'base', 'Altersgruppe', 'd',
+'Meldedatum_Hosp'. You can override using the `.groups` argument.
+`summarise()` has grouped output by 'Altersgruppe'. You can override using the
+`.groups` argument.
+[1] 56
+[1] "DE-NW"
+`summarise()` has grouped output by 'base', 'Altersgruppe', 'd',
+'Meldedatum_Hosp'. You can override using the `.groups` argument.
+`summarise()` has grouped output by 'Altersgruppe'. You can override using the
+`.groups` argument.
+[1] "DE-SH"
+[1] 56
+`summarise()` has grouped output by 'Altersgruppe'. You can override using the
+`.groups` argument.
+`summarise()` has grouped output by 'base', 'Altersgruppe', 'd',
+'Meldedatum_Hosp'. You can override using the `.groups` argument.
+[1] "DE-TH"
+`summarise()` has grouped output by 'base', 'Altersgruppe', 'd',
+'Meldedatum_Hosp'. You can override using the `.groups` argument.
+`summarise()` has grouped output by 'base'. You can override using the
+`.groups` argument.
+`summarise()` has grouped output by 'base'. You can override using the
+`.groups` argument.
+[1] 17
+[1] 33
+[1] 18
+`summarise()` has grouped output by 'base'. You can override using the
+`.groups` argument.
+`summarise()` has grouped output by 'base'. You can override using the
+`.groups` argument.
+[1] 17
+[1] 19
+[1] 18
+[1] 20
+`summarise()` has grouped output by 'Altersgruppe'. You can override using the
+`.groups` argument.
+[1] "DE-ST"
+[1] 19
+`summarise()` has grouped output by 'base', 'Altersgruppe', 'd',
+'Meldedatum_Hosp'. You can override using the `.groups` argument.
+[1] 21
+`summarise()` has grouped output by 'base'. You can override using the
+`.groups` argument.
+`summarise()` has grouped output by 'base'. You can override using the
+`.groups` argument.
+[1] 17
+`summarise()` has grouped output by 'base'. You can override using the
+`.groups` argument.
+`summarise()` has grouped output by 'base'. You can override using the
+`.groups` argument.
+[1] 17
+[1] 20
+`summarise()` has grouped output by 'Altersgruppe'. You can override using the
+`.groups` argument.
+[1] 18
+[1] "DE-SN"
+`summarise()` has grouped output by 'base', 'Altersgruppe', 'd',
+'Meldedatum_Hosp'. You can override using the `.groups` argument.
+[1] 18
+[1] 22
+[1] 19
+[1] 21
+[1] 19
+[1] 20
+[1] 23
+[1] 20
+[1] 22
+[1] 21
+`summarise()` has grouped output by 'Altersgruppe'. You can override using the
+`.groups` argument.
+[1] "DE-SL"
+[1] 21
+[1] 24
+`summarise()` has grouped output by 'base', 'Altersgruppe', 'd',
+'Meldedatum_Hosp'. You can override using the `.groups` argument.
+[1] 22
+`summarise()` has grouped output by 'base'. You can override using the
+`.groups` argument.
+`summarise()` has grouped output by 'base'. You can override using the
+`.groups` argument.
+[1] 17
+[1] 23
+[1] 22
+[1] 18
+`summarise()` has grouped output by 'base'. You can override using the
+`.groups` argument.
+`summarise()` has grouped output by 'base'. You can override using the
+`.groups` argument.
+[1] 23
+[1] 17
+[1] 25
+[1] 24
+[1] 19
+[1] 23
+[1] 18
+[1] 24
+[1] 20
+[1] 19
+[1] 25
+[1] 26
+[1] 24
+[1] 21
+[1] 20
+[1] 25
+`summarise()` has grouped output by 'base'. You can override using the
+`.groups` argument.
+`summarise()` has grouped output by 'base'. You can override using the
+`.groups` argument.
+[1] 17
+[1] 26
+[1] 25
+[1] 21
+[1] 18
+[1] 27
+[1] 22
+[1] 19
+[1] 26
+[1] 22
+[1] 20
+[1] 26
+[1] 23
+[1] 27
+[1] 28
+[1] 21
+[1] 23
+[1] 27
+[1] 34
+[1] 24
+[1] 27
+[1] 22
+[1] 24
+[1] 28
+[1] 25
+[1] 29
+[1] 28
+[1] 23
+[1] 28
+[1] 25
+[1] 24
+[1] 26
+[1] 29
+[1] 29
+[1] 30
+[1] 26
+[1] 25
+[1] 29
+[1] 27
+[1] 26
+[1] 30
+[1] 27
+[1] 30
+[1] 30
+[1] 31
+[1] 27
+[1] 28
+[1] 28
+[1] 31
+[1] 31
+[1] 28
+[1] 31
+[1] 29
+[1] 32
+[1] 29
+[1] 29
+[1] 32
+[1] 32
+[1] 32
+[1] 30
+[1] 30
+[1] 33
+[1] 30
+[1] 33
+[1] 33
+[1] 33
+[1] 31
+[1] 31
+[1] 31
+[1] 34
+[1] 35
+[1] 34
+[1] 32
+[1] 32
+[1] 34
+[1] 32
+[1] 34
+[1] 35
+[1] 33
+[1] 35
+[1] 33
+[1] 33
+[1] 35
+[1] 35
+[1] 34
+[1] 36
+[1] 36
+[1] 34
+[1] 34
+[1] 36
+[1] 36
+[1] 35
+[1] 37
+[1] 37
+[1] 35
+[1] 35
+[1] 37
+[1] 36
+[1] 37
+[1] 36
+[1] 38
+[1] 36
+[1] 38
+[1] 37
+[1] 38
+[1] 38
+[1] 36
+[1] 37
+[1] 39
+[1] 37
+[1] 38
+[1] 39
+[1] 39
+[1] 39
+[1] 38
+[1] 39
+[1] 40
+[1] 38
+[1] 40
+[1] 40
+[1] 40
+[1] 40
+[1] 39
+[1] 39
+[1] 41
+[1] 41
+[1] 41
+[1] 41
+[1] 40
+[1] 41
+[1] 40
+[1] 42
+[1] 42
+[1] 42
+[1] 42
+[1] 41
+[1] 42
+[1] 41
+[1] 43
+[1] 37
+[1] 43
+[1] 43
+[1] 43
+[1] 42
+[1] 43
+[1] 42
+[1] 44
+[1] 44
+[1] 44
+[1] 44
+[1] 43
+[1] 44
+[1] 43
+[1] 45
+[1] 45
+[1] 45
+[1] 44
+[1] 45
+[1] 44
+[1] 45
+[1] 46
+[1] 46
+[1] 46
+[1] 45
+[1] 46
+[1] 47
+[1] 45
+[1] 46
+[1] 38
+[1] 47
+[1] 47
+[1] 46
+[1] 48
+[1] 47
+[1] 46
+[1] 48
+[1] 47
+[1] 48
+[1] 47
+[1] 49
+[1] 48
+[1] 47
+[1] 49
+[1] 48
+[1] 49
+[1] 50
+[1] 48
+[1] 49
+[1] 48
+[1] 50
+[1] 49
+[1] 50
+[1] 51
+[1] 49
+[1] 39
+[1] 49
+[1] 50
+[1] 51
+[1] 50
+[1] 51
+[1] 52
+[1] 50
+[1] 50
+[1] 51
+[1] 52
+[1] 53
+[1] 51
+[1] 52
+[1] 51
+[1] 51
+[1] 53
+[1] 52
+[1] 54
+[1] 53
+[1] 52
+[1] 52
+[1] 52
+[1] 55
+[1] 40
+[1] 54
+[1] 53
+[1] 54
+[1] 53
+[1] 53
+[1] 56
+[1] 53
+[1] 55
+[1] 54
+[1] 55
+[1] 54
+[1] 54
+[1] 54
+`summarise()` has grouped output by 'Altersgruppe'. You can override using the
+`.groups` argument.
+[1] 56
+[1] 55
+[1] 56
+[1] 55
+[1] 55
+[1] 55
+`summarise()` has grouped output by 'Altersgruppe'. You can override using the
+`.groups` argument.
+[1] 56
+[1] 41
+[1] 56
+[1] 56
+`summarise()` has grouped output by 'Altersgruppe'. You can override using the
+`.groups` argument.
+[1] 56
+`summarise()` has grouped output by 'Altersgruppe'. You can override using the
+`.groups` argument.
+`summarise()` has grouped output by 'Altersgruppe'. You can override using the
+`.groups` argument.
+`summarise()` has grouped output by 'Altersgruppe'. You can override using the
+`.groups` argument.
+`summarise()` has grouped output by 'Altersgruppe'. You can override using the
+`.groups` argument.
+[1] 42
+[1] 43
+[1] 44
+[1] 45
+[1] 46
+[1] 47
+[1] 48
+[1] 49
+[1] 50
+[1] 51
+[1] 52
+[1] 53
+[1] 54
+[1] 55
+[1] 56
+`summarise()` has grouped output by 'Altersgruppe'. You can override using the
+`.groups` argument.
+[1] "DE-NI"
+`summarise()` has grouped output by 'base', 'Altersgruppe', 'd',
+'Meldedatum_Hosp'. You can override using the `.groups` argument.
+`summarise()` has grouped output by 'base'. You can override using the
+`.groups` argument.
+`summarise()` has grouped output by 'base'. You can override using the
+`.groups` argument.
+[1] 17
+[1] 18
+[1] 19
+[1] 20
+[1] 21
+[1] 22
+[1] 23
+[1] 24
+[1] 25
+[1] 26
+[1] 27
+[1] 28
+[1] 29
+[1] 30
+[1] 31
+[1] 32
+[1] 33
+[1] 34
+[1] 35
+[1] 36
+[1] 37
+[1] 38
+[1] 39
+[1] 40
+[1] 41
+[1] 42
+[1] 43
+[1] 44
+[1] 45
+[1] 46
+[1] 47
+[1] 48
+[1] 49
+[1] 50
+[1] 51
+[1] 52
+[1] 53
+[1] 54
+[1] 55
+[1] 56
+`summarise()` has grouped output by 'Altersgruppe'. You can override using the
+`.groups` argument.
+[1] "DE"
+ℹ Using "','" as decimal and "'.'" as grouping mark. Use `read_delim()` for more control.
+Rows: 5117 Columns: 37
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ";"
+chr   (1): age60
+dbl  (35): reported, nowcast_est, nowcast_0.025, nowcast_0.1, nowcast_0.25, ...
+date  (1): date
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+Rows: 87108 Columns: 85
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr   (2): location, age_group
+dbl  (82): value_0d, value_1d, value_2d, value_3d, value_4d, value_5d, value...
+date  (1): date
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+`summarise()` has grouped output by 'date'. You can override using the
+`.groups` argument.
+Joining, by = c("date", "age60")
+ℹ Using "','" as decimal and "'.'" as grouping mark. Use `read_delim()` for more control.
+Rows: 4431 Columns: 37
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ";"
+chr   (1): age60
+dbl  (35): reported, nowcast_est, nowcast_0.025, nowcast_0.1, nowcast_0.25, ...
+date  (1): date
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+ℹ Using "','" as decimal and "'.'" as grouping mark. Use `read_delim()` for more control.
+Rows: 4438 Columns: 37
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ";"
+chr   (1): age60
+dbl  (35): reported, nowcast_est, nowcast_0.025, nowcast_0.1, nowcast_0.25, ...
+date  (1): date
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+ℹ Using "','" as decimal and "'.'" as grouping mark. Use `read_delim()` for more control.
+Rows: 4445 Columns: 37
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ";"
+chr   (1): age60
+dbl  (35): reported, nowcast_est, nowcast_0.025, nowcast_0.1, nowcast_0.25, ...
+date  (1): date
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+ℹ Using "','" as decimal and "'.'" as grouping mark. Use `read_delim()` for more control.
+Rows: 4452 Columns: 37
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ";"
+chr   (1): age60
+dbl  (35): reported, nowcast_est, nowcast_0.025, nowcast_0.1, nowcast_0.25, ...
+date  (1): date
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+ℹ Using "','" as decimal and "'.'" as grouping mark. Use `read_delim()` for more control.
+Rows: 4459 Columns: 37
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ";"
+chr   (1): age60
+dbl  (35): reported, nowcast_est, nowcast_0.025, nowcast_0.1, nowcast_0.25, ...
+date  (1): date
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+ℹ Using "','" as decimal and "'.'" as grouping mark. Use `read_delim()` for more control.
+Rows: 4466 Columns: 37
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ";"
+chr   (1): age60
+dbl  (35): reported, nowcast_est, nowcast_0.025, nowcast_0.1, nowcast_0.25, ...
+date  (1): date
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+ℹ Using "','" as decimal and "'.'" as grouping mark. Use `read_delim()` for more control.
+Rows: 4473 Columns: 37
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ";"
+chr   (1): age60
+dbl  (35): reported, nowcast_est, nowcast_0.025, nowcast_0.1, nowcast_0.25, ...
+date  (1): date
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+ℹ Using "','" as decimal and "'.'" as grouping mark. Use `read_delim()` for more control.
+Rows: 4480 Columns: 37
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ";"
+chr   (1): age60
+dbl  (35): reported, nowcast_est, nowcast_0.025, nowcast_0.1, nowcast_0.25, ...
+date  (1): date
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+ℹ Using "','" as decimal and "'.'" as grouping mark. Use `read_delim()` for more control.
+Rows: 4487 Columns: 37
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ";"
+chr   (1): age60
+dbl  (35): reported, nowcast_est, nowcast_0.025, nowcast_0.1, nowcast_0.25, ...
+date  (1): date
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+ℹ Using "','" as decimal and "'.'" as grouping mark. Use `read_delim()` for more control.
+Rows: 4494 Columns: 37
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ";"
+chr   (1): age60
+dbl  (35): reported, nowcast_est, nowcast_0.025, nowcast_0.1, nowcast_0.25, ...
+date  (1): date
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+ℹ Using "','" as decimal and "'.'" as grouping mark. Use `read_delim()` for more control.
+Rows: 4501 Columns: 37
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ";"
+chr   (1): age60
+dbl  (35): reported, nowcast_est, nowcast_0.025, nowcast_0.1, nowcast_0.25, ...
+date  (1): date
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+ℹ Using "','" as decimal and "'.'" as grouping mark. Use `read_delim()` for more control.
+Rows: 4508 Columns: 37
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ";"
+chr   (1): age60
+dbl  (35): reported, nowcast_est, nowcast_0.025, nowcast_0.1, nowcast_0.25, ...
+date  (1): date
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+ℹ Using "','" as decimal and "'.'" as grouping mark. Use `read_delim()` for more control.
+Rows: 4515 Columns: 37
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ";"
+chr   (1): age60
+dbl  (35): reported, nowcast_est, nowcast_0.025, nowcast_0.1, nowcast_0.25, ...
+date  (1): date
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+ℹ Using "','" as decimal and "'.'" as grouping mark. Use `read_delim()` for more control.
+Rows: 4522 Columns: 37
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ";"
+chr   (1): age60
+dbl  (35): reported, nowcast_est, nowcast_0.025, nowcast_0.1, nowcast_0.25, ...
+date  (1): date
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+ℹ Using "','" as decimal and "'.'" as grouping mark. Use `read_delim()` for more control.
+Rows: 4529 Columns: 37
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ";"
+chr   (1): age60
+dbl  (35): reported, nowcast_est, nowcast_0.025, nowcast_0.1, nowcast_0.25, ...
+date  (1): date
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+ℹ Using "','" as decimal and "'.'" as grouping mark. Use `read_delim()` for more control.
+Rows: 4536 Columns: 37
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ";"
+chr   (1): age60
+dbl  (35): reported, nowcast_est, nowcast_0.025, nowcast_0.1, nowcast_0.25, ...
+date  (1): date
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+ℹ Using "','" as decimal and "'.'" as grouping mark. Use `read_delim()` for more control.
+Rows: 4543 Columns: 37
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ";"
+chr   (1): age60
+dbl  (35): reported, nowcast_est, nowcast_0.025, nowcast_0.1, nowcast_0.25, ...
+date  (1): date
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+ℹ Using "','" as decimal and "'.'" as grouping mark. Use `read_delim()` for more control.
+Rows: 4550 Columns: 37
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ";"
+chr   (1): age60
+dbl  (35): reported, nowcast_est, nowcast_0.025, nowcast_0.1, nowcast_0.25, ...
+date  (1): date
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+ℹ Using "','" as decimal and "'.'" as grouping mark. Use `read_delim()` for more control.
+Rows: 4557 Columns: 37
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ";"
+chr   (1): age60
+dbl  (35): reported, nowcast_est, nowcast_0.025, nowcast_0.1, nowcast_0.25, ...
+date  (1): date
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+ℹ Using "','" as decimal and "'.'" as grouping mark. Use `read_delim()` for more control.
+Rows: 4564 Columns: 37
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ";"
+chr   (1): age60
+dbl  (35): reported, nowcast_est, nowcast_0.025, nowcast_0.1, nowcast_0.25, ...
+date  (1): date
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+ℹ Using "','" as decimal and "'.'" as grouping mark. Use `read_delim()` for more control.
+Rows: 4571 Columns: 37
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ";"
+chr   (1): age60
+dbl  (35): reported, nowcast_est, nowcast_0.025, nowcast_0.1, nowcast_0.25, ...
+date  (1): date
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+ℹ Using "','" as decimal and "'.'" as grouping mark. Use `read_delim()` for more control.
+Rows: 4578 Columns: 37
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ";"
+chr   (1): age60
+dbl  (35): reported, nowcast_est, nowcast_0.025, nowcast_0.1, nowcast_0.25, ...
+date  (1): date
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+ℹ Using "','" as decimal and "'.'" as grouping mark. Use `read_delim()` for more control.
+Rows: 4585 Columns: 37
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ";"
+chr   (1): age60
+dbl  (35): reported, nowcast_est, nowcast_0.025, nowcast_0.1, nowcast_0.25, ...
+date  (1): date
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+ℹ Using "','" as decimal and "'.'" as grouping mark. Use `read_delim()` for more control.
+Rows: 4592 Columns: 37
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ";"
+chr   (1): age60
+dbl  (35): reported, nowcast_est, nowcast_0.025, nowcast_0.1, nowcast_0.25, ...
+date  (1): date
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+ℹ Using "','" as decimal and "'.'" as grouping mark. Use `read_delim()` for more control.
+Rows: 4599 Columns: 37
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ";"
+chr   (1): age60
+dbl  (35): reported, nowcast_est, nowcast_0.025, nowcast_0.1, nowcast_0.25, ...
+date  (1): date
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+ℹ Using "','" as decimal and "'.'" as grouping mark. Use `read_delim()` for more control.
+Rows: 4606 Columns: 37
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ";"
+chr   (1): age60
+dbl  (35): reported, nowcast_est, nowcast_0.025, nowcast_0.1, nowcast_0.25, ...
+date  (1): date
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+ℹ Using "','" as decimal and "'.'" as grouping mark. Use `read_delim()` for more control.
+Rows: 4613 Columns: 37
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ";"
+chr   (1): age60
+dbl  (35): reported, nowcast_est, nowcast_0.025, nowcast_0.1, nowcast_0.25, ...
+date  (1): date
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+ℹ Using "','" as decimal and "'.'" as grouping mark. Use `read_delim()` for more control.
+Rows: 4620 Columns: 37
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ";"
+chr   (1): age60
+dbl  (35): reported, nowcast_est, nowcast_0.025, nowcast_0.1, nowcast_0.25, ...
+date  (1): date
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+ℹ Using "','" as decimal and "'.'" as grouping mark. Use `read_delim()` for more control.
+Rows: 4627 Columns: 37
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ";"
+chr   (1): age60
+dbl  (35): reported, nowcast_est, nowcast_0.025, nowcast_0.1, nowcast_0.25, ...
+date  (1): date
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+ℹ Using "','" as decimal and "'.'" as grouping mark. Use `read_delim()` for more control.
+Rows: 4634 Columns: 37
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ";"
+chr   (1): age60
+dbl  (35): reported, nowcast_est, nowcast_0.025, nowcast_0.1, nowcast_0.25, ...
+date  (1): date
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+ℹ Using "','" as decimal and "'.'" as grouping mark. Use `read_delim()` for more control.
+Rows: 4641 Columns: 37
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ";"
+chr   (1): age60
+dbl  (35): reported, nowcast_est, nowcast_0.025, nowcast_0.1, nowcast_0.25, ...
+date  (1): date
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+ℹ Using "','" as decimal and "'.'" as grouping mark. Use `read_delim()` for more control.
+Rows: 4648 Columns: 37
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ";"
+chr   (1): age60
+dbl  (35): reported, nowcast_est, nowcast_0.025, nowcast_0.1, nowcast_0.25, ...
+date  (1): date
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+ℹ Using "','" as decimal and "'.'" as grouping mark. Use `read_delim()` for more control.
+Rows: 4655 Columns: 37
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ";"
+chr   (1): age60
+dbl  (35): reported, nowcast_est, nowcast_0.025, nowcast_0.1, nowcast_0.25, ...
+date  (1): date
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+ℹ Using "','" as decimal and "'.'" as grouping mark. Use `read_delim()` for more control.
+Rows: 4662 Columns: 37
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ";"
+chr   (1): age60
+dbl  (35): reported, nowcast_est, nowcast_0.025, nowcast_0.1, nowcast_0.25, ...
+date  (1): date
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+ℹ Using "','" as decimal and "'.'" as grouping mark. Use `read_delim()` for more control.
+Rows: 4669 Columns: 37
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ";"
+chr   (1): age60
+dbl  (35): reported, nowcast_est, nowcast_0.025, nowcast_0.1, nowcast_0.25, ...
+date  (1): date
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+ℹ Using "','" as decimal and "'.'" as grouping mark. Use `read_delim()` for more control.
+Rows: 4676 Columns: 37
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ";"
+chr   (1): age60
+dbl  (35): reported, nowcast_est, nowcast_0.025, nowcast_0.1, nowcast_0.25, ...
+date  (1): date
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+ℹ Using "','" as decimal and "'.'" as grouping mark. Use `read_delim()` for more control.
+Rows: 4683 Columns: 37
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ";"
+chr   (1): age60
+dbl  (35): reported, nowcast_est, nowcast_0.025, nowcast_0.1, nowcast_0.25, ...
+date  (1): date
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+ℹ Using "','" as decimal and "'.'" as grouping mark. Use `read_delim()` for more control.
+Rows: 4690 Columns: 37
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ";"
+chr   (1): age60
+dbl  (35): reported, nowcast_est, nowcast_0.025, nowcast_0.1, nowcast_0.25, ...
+date  (1): date
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+ℹ Using "','" as decimal and "'.'" as grouping mark. Use `read_delim()` for more control.
+Error: '03_Results/RKI_results/2023-02-05/nowcasting_results_DE_2023-02-05.csv' does not exist in current working directory ('/home/ubuntu/Nowcasting_covid19_hospitalizations').
+In addition: Warning message:
+In melt(data = data_real, id.vars = c("date", "age_group", "location"),  :
+  The melt generic in data.table has been passed a tbl_df and will attempt to redirect to the relevant reshape2 method; please note that reshape2 is deprecated, and this redirection is now deprecated as well. To continue using melt methods from reshape2 while both libraries are attached, e.g. melt.list, you can prepend the namespace like reshape2::melt(data_real). In the next version, this warning will become an error.
+Execution halted
+── Attaching packages ─────────────────────────────────────── tidyverse 1.3.2 ──
+✔ ggplot2 3.4.0      ✔ purrr   1.0.0 
+✔ tibble  3.1.8      ✔ dplyr   1.0.10
+✔ tidyr   1.2.1      ✔ stringr 1.5.0 
+✔ readr   2.1.3      ✔ forcats 0.5.2 
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+Loading required package: timechange
+
+Attaching package: ‘lubridate’
+
+The following objects are masked from ‘package:base’:
+
+    date, intersect, setdiff, union
+
+
+Attaching package: ‘git2r’
+
+The following object is masked from ‘package:dplyr’:
+
+    pull
+
+The following objects are masked from ‘package:purrr’:
+
+    is_empty, when
+
+
+Attaching package: ‘data.table’
+
+The following objects are masked from ‘package:lubridate’:
+
+    hour, isoweek, mday, minute, month, quarter, second, wday, week,
+    yday, year
+
+The following objects are masked from ‘package:dplyr’:
+
+    between, first, last
+
+The following object is masked from ‘package:purrr’:
+
+    transpose
+
+[1] "2023-04-07 23:21:36 CEST"
+[1] "2023-04-07 23:21:36 CEST"
+[1] "2023-04-07 21:21:36 UTC"
+[1] 0.0005247593
+trying URL 'https://raw.githubusercontent.com/KITmetricslab/hospitalization-nowcast-hub/main/data-truth/COVID-19/COVID-19_hospitalizations_preprocessed.csv'
+Content type 'text/plain; charset=utf-8' length 15885366 bytes (15.1 MB)
+==================================================
+downloaded 15.1 MB
+
+
+Attaching package: ‘magrittr’
+
+The following object is masked from ‘package:git2r’:
+
+    add
+
+The following object is masked from ‘package:purrr’:
+
+    set_names
+
+The following object is masked from ‘package:tidyr’:
+
+    extract
+
+Loading required package: nlme
+
+Attaching package: ‘nlme’
+
+The following object is masked from ‘package:dplyr’:
+
+    collapse
+
+This is mgcv 1.8-41. For overview type 'help("mgcv-package")'.
+Loading required package: sp
+Please note that rgdal will be retired during 2023,
+plan transition to sf/stars/terra functions using GDAL and PROJ
+at your earliest convenience.
+See https://r-spatial.org/r/2022/04/12/evolution.html and https://github.com/r-spatial/evolution
+rgdal: version: 1.6-3, (SVN revision 1187)
+Geospatial Data Abstraction Library extensions to R successfully loaded
+Loaded GDAL runtime: GDAL 3.0.4, released 2020/01/28
+Path to GDAL shared files: /usr/share/gdal
+GDAL binary built with GEOS: TRUE 
+Loaded PROJ runtime: Rel. 6.3.1, February 10th, 2020, [PJ_VERSION: 631]
+Path to PROJ shared files: /usr/share/proj
+Linking to sp version:1.5-1
+To mute warnings of possible GDAL/OSR exportToProj4() degradation,
+use options("rgdal_show_exportToProj4_warnings"="none") before loading sp or rgdal.
+trying URL 'https://raw.githubusercontent.com/KITmetricslab/hospitalization-nowcast-hub/main/data-truth/COVID-19/COVID-19_hospitalizations_preprocessed.csv'
+Content type 'text/plain; charset=utf-8' length 15885366 bytes (15.1 MB)
+==================================================
+downloaded 15.1 MB
+
+[1] "DE"
+[1] "DE-BB"
+[1] "DE-BE"
+[1] "DE-BW"
+[1] "DE-BY"
+[1] "DE-HE"
+[1] "DE-HB"
+[1] "DE-HH"
+[1] "DE-MV"
+`summarise()` has grouped output by 'base', 'Altersgruppe', 'd',
+'Meldedatum_Hosp'. You can override using the `.groups` argument.
+`summarise()` has grouped output by 'base', 'Altersgruppe', 'd',
+'Meldedatum_Hosp'. You can override using the `.groups` argument.
+`summarise()` has grouped output by 'base', 'Altersgruppe', 'd',
+'Meldedatum_Hosp'. You can override using the `.groups` argument.
+`summarise()` has grouped output by 'base', 'Altersgruppe', 'd',
+'Meldedatum_Hosp'. You can override using the `.groups` argument.
+`summarise()` has grouped output by 'base', 'Altersgruppe', 'd',
+'Meldedatum_Hosp'. You can override using the `.groups` argument.
+`summarise()` has grouped output by 'base', 'Altersgruppe', 'd',
+'Meldedatum_Hosp'. You can override using the `.groups` argument.
+`summarise()` has grouped output by 'base', 'Altersgruppe', 'd',
+'Meldedatum_Hosp'. You can override using the `.groups` argument.
+`summarise()` has grouped output by 'base', 'Altersgruppe', 'd',
+'Meldedatum_Hosp'. You can override using the `.groups` argument.
+`summarise()` has grouped output by 'base', 'Altersgruppe', 'd',
+'Meldedatum_Hosp'. You can override using the `.groups` argument.
+`summarise()` has grouped output by 'base'. You can override using the
+`.groups` argument.
+`summarise()` has grouped output by 'base'. You can override using the
+`.groups` argument.
+[1] 17
+`summarise()` has grouped output by 'base'. You can override using the
+`.groups` argument.
+`summarise()` has grouped output by 'base'. You can override using the
+`.groups` argument.
+`summarise()` has grouped output by 'base'. You can override using the
+`.groups` argument.
+[1] 17
+`summarise()` has grouped output by 'base'. You can override using the
+`.groups` argument.
+[1] 17
+`summarise()` has grouped output by 'base'. You can override using the
+`.groups` argument.
+`summarise()` has grouped output by 'base'. You can override using the
+`.groups` argument.
+[1] 17
+`summarise()` has grouped output by 'base'. You can override using the
+`.groups` argument.
+`summarise()` has grouped output by 'base'. You can override using the
+`.groups` argument.
+[1] 17
+`summarise()` has grouped output by 'base'. You can override using the
+`.groups` argument.
+`summarise()` has grouped output by 'base'. You can override using the
+`.groups` argument.
+[1] 17
+`summarise()` has grouped output by 'base'. You can override using the
+`.groups` argument.
+`summarise()` has grouped output by 'base'. You can override using the
+`.groups` argument.
+[1] 17
+`summarise()` has grouped output by 'base'. You can override using the
+`.groups` argument.
+`summarise()` has grouped output by 'base'. You can override using the
+`.groups` argument.
+[1] 17
+[1] 18
+[1] 18
+[1] 18
+[1] 18
+[1] 18
+[1] 18
+[1] 18
+[1] 18
+[1] 19
+[1] 19
+[1] 19
+[1] 19
+[1] 19
+[1] 19
+[1] 19
+[1] 20
+[1] 19
+[1] 20
+[1] 20
+[1] 20
+[1] 20
+[1] 21
+[1] 20
+[1] 20
+[1] 20
+[1] 21
+[1] 21
+[1] 21
+[1] 21
+[1] 22
+[1] 21
+[1] 21
+[1] 21
+[1] 22
+[1] 22
+[1] 23
+[1] 22
+[1] 22
+[1] 22
+[1] 22
+[1] 22
+[1] 23
+[1] 24
+[1] 23
+[1] 23
+[1] 23
+[1] 23
+[1] 23
+[1] 23
+[1] 25
+[1] 24
+[1] 24
+[1] 24
+[1] 24
+[1] 24
+[1] 24
+[1] 24
+[1] 26
+[1] 25
+[1] 25
+[1] 25
+[1] 25
+[1] 25
+[1] 25
+[1] 25
+[1] 27
+[1] 26
+[1] 26
+[1] 26
+`summarise()` has grouped output by 'base'. You can override using the
+`.groups` argument.
+`summarise()` has grouped output by 'base'. You can override using the
+`.groups` argument.
+[1] 17
+[1] 26
+[1] 26
+[1] 26
+[1] 28
+[1] 26
+[1] 27
+[1] 27
+[1] 27
+[1] 27
+[1] 27
+[1] 29
+[1] 27
+[1] 27
+[1] 28
+[1] 18
+[1] 28
+[1] 28
+[1] 30
+[1] 28
+[1] 28
+[1] 28
+[1] 28
+[1] 29
+[1] 29
+[1] 29
+[1] 31
+[1] 29
+[1] 29
+[1] 29
+[1] 29
+[1] 19
+[1] 30
+[1] 30
+[1] 30
+[1] 32
+[1] 30
+[1] 30
+[1] 30
+[1] 30
+[1] 31
+[1] 31
+[1] 31
+[1] 33
+[1] 31
+[1] 31
+[1] 31
+[1] 31
+[1] 32
+[1] 20
+[1] 32
+[1] 32
+[1] 34
+[1] 32
+[1] 32
+[1] 32
+[1] 32
+[1] 33
+[1] 33
+[1] 35
+[1] 33
+[1] 33
+[1] 33
+[1] 33
+[1] 33
+[1] 34
+[1] 36
+[1] 34
+[1] 21
+[1] 34
+[1] 34
+[1] 34
+[1] 34
+[1] 34
+[1] 37
+[1] 35
+[1] 35
+[1] 35
+[1] 35
+[1] 35
+[1] 35
+[1] 38
+[1] 35
+[1] 36
+[1] 36
+[1] 36
+[1] 22
+[1] 36
+[1] 36
+[1] 39
+[1] 36
+[1] 36
+[1] 37
+[1] 37
+[1] 37
+[1] 37
+[1] 40
+[1] 37
+[1] 37
+[1] 37
+[1] 38
+[1] 38
+[1] 38
+[1] 38
+[1] 23
+[1] 41
+[1] 38
+[1] 38
+[1] 38
+[1] 39
+[1] 39
+[1] 39
+[1] 39
+[1] 42
+[1] 39
+[1] 39
+[1] 39
+[1] 40
+[1] 40
+[1] 43
+[1] 24
+[1] 40
+[1] 40
+[1] 40
+[1] 40
+[1] 40
+[1] 41
+[1] 41
+[1] 44
+[1] 41
+[1] 41
+[1] 41
+[1] 41
+[1] 41
+[1] 42
+[1] 42
+[1] 45
+[1] 42
+[1] 25
+[1] 42
+[1] 42
+[1] 42
+[1] 42
+[1] 43
+[1] 46
+[1] 43
+[1] 43
+[1] 43
+[1] 43
+[1] 43
+[1] 43
+[1] 47
+[1] 44
+[1] 44
+[1] 44
+[1] 26
+[1] 44
+[1] 44
+[1] 44
+[1] 44
+[1] 48
+[1] 45
+[1] 45
+[1] 45
+[1] 45
+[1] 45
+[1] 49
+[1] 45
+[1] 45
+[1] 46
+[1] 46
+[1] 46
+[1] 27
+[1] 50
+[1] 46
+[1] 46
+[1] 46
+[1] 46
+[1] 47
+[1] 47
+[1] 47
+[1] 51
+[1] 47
+[1] 47
+[1] 47
+[1] 47
+[1] 48
+[1] 48
+[1] 48
+[1] 52
+[1] 48
+[1] 28
+[1] 48
+[1] 48
+[1] 48
+[1] 49
+[1] 49
+[1] 53
+[1] 49
+[1] 49
+[1] 49
+[1] 49
+[1] 49
+[1] 50
+[1] 50
+[1] 54
+[1] 50
+[1] 50
+[1] 50
+[1] 50
+[1] 29
+[1] 51
+[1] 50
+[1] 55
+[1] 51
+[1] 51
+[1] 51
+[1] 51
+[1] 51
+[1] 51
+[1] 52
+[1] 56
+[1] 52
+[1] 52
+[1] 52
+[1] 52
+[1] 52
+[1] 53
+[1] 52
+[1] 30
+`summarise()` has grouped output by 'Altersgruppe'. You can override using the
+`.groups` argument.
+[1] 53
+[1] 53
+[1] 53
+[1] 53
+[1] 53
+[1] 54
+[1] 53
+[1] 54
+[1] 54
+[1] 54
+[1] 54
+[1] 55
+[1] 54
+[1] 54
+[1] 31
+[1] 55
+[1] 55
+[1] 55
+[1] 56
+[1] 55
+[1] 55
+[1] 55
+[1] 56
+[1] 56
+[1] 56
+[1] 56
+[1] 56
+`summarise()` has grouped output by 'Altersgruppe'. You can override using the
+`.groups` argument.
+[1] 56
+[1] "DE-NW"
+`summarise()` has grouped output by 'base', 'Altersgruppe', 'd',
+'Meldedatum_Hosp'. You can override using the `.groups` argument.
+[1] 32
+`summarise()` has grouped output by 'Altersgruppe'. You can override using the
+`.groups` argument.
+[1] "DE-RP"
+`summarise()` has grouped output by 'base', 'Altersgruppe', 'd',
+'Meldedatum_Hosp'. You can override using the `.groups` argument.
+`summarise()` has grouped output by 'Altersgruppe'. You can override using the
+`.groups` argument.
+[1] "DE-SH"
+`summarise()` has grouped output by 'Altersgruppe'. You can override using the
+`.groups` argument.
+[1] "DE-SN"
+`summarise()` has grouped output by 'base', 'Altersgruppe', 'd',
+'Meldedatum_Hosp'. You can override using the `.groups` argument.
+`summarise()` has grouped output by 'base', 'Altersgruppe', 'd',
+'Meldedatum_Hosp'. You can override using the `.groups` argument.
+`summarise()` has grouped output by 'base'. You can override using the
+`.groups` argument.
+`summarise()` has grouped output by 'base'. You can override using the
+`.groups` argument.
+[1] 17
+[1] 18
+[1] 19
+`summarise()` has grouped output by 'base'. You can override using the
+`.groups` argument.
+`summarise()` has grouped output by 'base'. You can override using the
+`.groups` argument.
+[1] 17
+`summarise()` has grouped output by 'Altersgruppe'. You can override using the
+`.groups` argument.
+[1] "DE-ST"
+[1] 20
+[1] 18
+`summarise()` has grouped output by 'Altersgruppe'. You can override using the
+`.groups` argument.
+`summarise()` has grouped output by 'base', 'Altersgruppe', 'd',
+'Meldedatum_Hosp'. You can override using the `.groups` argument.
+[1] "DE-SL"
+[1] 19
+`summarise()` has grouped output by 'Altersgruppe'. You can override using the
+`.groups` argument.
+[1] "DE-TH"
+[1] 21
+`summarise()` has grouped output by 'base', 'Altersgruppe', 'd',
+'Meldedatum_Hosp'. You can override using the `.groups` argument.
+`summarise()` has grouped output by 'base'. You can override using the
+`.groups` argument.
+`summarise()` has grouped output by 'base'. You can override using the
+`.groups` argument.
+[1] 17
+`summarise()` has grouped output by 'base', 'Altersgruppe', 'd',
+'Meldedatum_Hosp'. You can override using the `.groups` argument.
+[1] 20
+`summarise()` has grouped output by 'base'. You can override using the
+`.groups` argument.
+`summarise()` has grouped output by 'base'. You can override using the
+`.groups` argument.
+[1] 17
+[1] 18
+[1] 22
+[1] 18
+[1] 21
+[1] 19
+[1] 19
+[1] 23
+[1] 20
+[1] 22
+[1] 20
+[1] 24
+`summarise()` has grouped output by 'base'. You can override using the
+`.groups` argument.
+`summarise()` has grouped output by 'base'. You can override using the
+`.groups` argument.
+[1] 17
+[1] 21
+[1] 21
+[1] 23
+`summarise()` has grouped output by 'base'. You can override using the
+`.groups` argument.
+`summarise()` has grouped output by 'base'. You can override using the
+`.groups` argument.
+[1] 17
+[1] 18
+`summarise()` has grouped output by 'base'. You can override using the
+`.groups` argument.
+`summarise()` has grouped output by 'base'. You can override using the
+`.groups` argument.
+[1] 17
+[1] 22
+[1] 18
+[1] 25
+[1] 22
+[1] 19
+[1] 24
+[1] 19
+[1] 18
+[1] 20
+[1] 23
+[1] 20
+[1] 23
+[1] 19
+[1] 26
+[1] 25
+[1] 21
+[1] 21
+[1] 33
+[1] 20
+[1] 24
+[1] 24
+[1] 22
+[1] 22
+[1] 27
+[1] 21
+[1] 26
+[1] 25
+[1] 25
+[1] 23
+[1] 23
+[1] 22
+[1] 28
+[1] 27
+[1] 24
+[1] 26
+[1] 26
+[1] 24
+[1] 23
+[1] 25
+[1] 29
+[1] 28
+[1] 25
+[1] 27
+[1] 24
+[1] 27
+[1] 26
+[1] 26
+[1] 25
+[1] 28
+[1] 29
+[1] 30
+[1] 28
+[1] 27
+[1] 26
+[1] 27
+[1] 29
+[1] 28
+[1] 30
+[1] 29
+[1] 31
+[1] 27
+[1] 28
+[1] 29
+[1] 30
+[1] 31
+[1] 30
+[1] 32
+[1] 28
+[1] 29
+[1] 30
+[1] 31
+[1] 32
+[1] 31
+[1] 29
+[1] 30
+[1] 33
+[1] 31
+[1] 34
+[1] 32
+[1] 30
+[1] 33
+[1] 32
+[1] 31
+[1] 32
+[1] 34
+[1] 33
+[1] 31
+[1] 33
+[1] 32
+[1] 34
+[1] 33
+[1] 35
+[1] 34
+[1] 32
+[1] 34
+[1] 33
+[1] 35
+[1] 34
+[1] 36
+[1] 33
+[1] 35
+[1] 35
+[1] 34
+[1] 36
+[1] 35
+[1] 37
+[1] 36
+[1] 34
+[1] 36
+[1] 35
+[1] 37
+[1] 36
+[1] 37
+[1] 35
+[1] 38
+[1] 37
+[1] 36
+[1] 35
+[1] 38
+[1] 37
+[1] 38
+[1] 36
+[1] 39
+[1] 38
+[1] 37
+[1] 39
+[1] 39
+[1] 38
+[1] 37
+[1] 40
+[1] 39
+[1] 38
+[1] 40
+[1] 40
+[1] 39
+[1] 38
+[1] 40
+[1] 39
+[1] 41
+[1] 41
+[1] 41
+[1] 39
+[1] 40
+[1] 40
+[1] 41
+[1] 42
+[1] 42
+[1] 42
+[1] 40
+[1] 36
+[1] 41
+[1] 41
+[1] 42
+[1] 43
+[1] 43
+[1] 43
+[1] 41
+[1] 42
+[1] 42
+[1] 43
+[1] 44
+[1] 44
+[1] 44
+[1] 42
+[1] 43
+[1] 45
+[1] 43
+[1] 44
+[1] 45
+[1] 45
+[1] 43
+[1] 46
+[1] 44
+[1] 45
+[1] 44
+[1] 46
+[1] 46
+[1] 44
+[1] 37
+[1] 47
+[1] 45
+[1] 46
+[1] 45
+[1] 47
+[1] 47
+[1] 45
+[1] 48
+[1] 46
+[1] 47
+[1] 46
+[1] 48
+[1] 48
+[1] 46
+[1] 49
+[1] 47
+[1] 48
+[1] 47
+[1] 49
+[1] 50
+[1] 49
+[1] 47
+[1] 48
+[1] 49
+[1] 48
+[1] 50
+[1] 51
+[1] 38
+[1] 50
+[1] 48
+[1] 49
+[1] 50
+[1] 49
+[1] 51
+[1] 52
+[1] 51
+[1] 49
+[1] 50
+[1] 51
+[1] 50
+[1] 53
+[1] 52
+[1] 52
+[1] 50
+[1] 51
+[1] 52
+[1] 51
+[1] 54
+[1] 53
+[1] 53
+[1] 51
+[1] 52
+[1] 53
+[1] 39
+[1] 52
+[1] 55
+[1] 54
+[1] 54
+[1] 52
+[1] 54
+[1] 53
+[1] 56
+[1] 53
+[1] 55
+[1] 55
+[1] 53
+[1] 55
+[1] 54
+[1] 54
+`summarise()` has grouped output by 'Altersgruppe'. You can override using the
+`.groups` argument.
+[1] 56
+[1] 56
+[1] 54
+[1] 56
+[1] 55
+[1] 55
+[1] 40
+`summarise()` has grouped output by 'Altersgruppe'. You can override using the
+`.groups` argument.
+[1] 55
+`summarise()` has grouped output by 'Altersgruppe'. You can override using the
+`.groups` argument.
+[1] 56
+`summarise()` has grouped output by 'Altersgruppe'. You can override using the
+`.groups` argument.
+[1] 56
+[1] 56
+`summarise()` has grouped output by 'Altersgruppe'. You can override using the
+`.groups` argument.
+`summarise()` has grouped output by 'Altersgruppe'. You can override using the
+`.groups` argument.
+`summarise()` has grouped output by 'Altersgruppe'. You can override using the
+`.groups` argument.
+[1] 41
+[1] 42
+[1] 43
+[1] 44
+[1] 45
+[1] 46
+[1] 47
+[1] 48
+[1] 49
+[1] 50
+[1] 51
+[1] 52
+[1] 53
+[1] 54
+[1] 55
+[1] 56
+`summarise()` has grouped output by 'Altersgruppe'. You can override using the
+`.groups` argument.
+[1] "DE-NI"
+`summarise()` has grouped output by 'base', 'Altersgruppe', 'd',
+'Meldedatum_Hosp'. You can override using the `.groups` argument.
+`summarise()` has grouped output by 'base'. You can override using the
+`.groups` argument.
+`summarise()` has grouped output by 'base'. You can override using the
+`.groups` argument.
+[1] 17
+[1] 18
+[1] 19
+[1] 20
+[1] 21
+[1] 22
+[1] 23
+[1] 24
+[1] 25
+[1] 26
+[1] 27
+[1] 28
+[1] 29
+[1] 30
+[1] 31
+[1] 32
+[1] 33
+[1] 34
+[1] 35
+[1] 36
+[1] 37
+[1] 38
+[1] 39
+[1] 40
+[1] 41
+[1] 42
+[1] 43
+[1] 44
+[1] 45
+[1] 46
+[1] 47
+[1] 48
+[1] 49
+[1] 50
+[1] 51
+[1] 52
+[1] 53
+[1] 54
+[1] 55
+[1] 56
+`summarise()` has grouped output by 'Altersgruppe'. You can override using the
+`.groups` argument.
+[1] "DE"
+ℹ Using "','" as decimal and "'.'" as grouping mark. Use `read_delim()` for more control.
+Rows: 5117 Columns: 37
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ";"
+chr   (1): age60
+dbl  (35): reported, nowcast_est, nowcast_0.025, nowcast_0.1, nowcast_0.25, ...
+date  (1): date
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+Rows: 87108 Columns: 85
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr   (2): location, age_group
+dbl  (82): value_0d, value_1d, value_2d, value_3d, value_4d, value_5d, value...
+date  (1): date
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+`summarise()` has grouped output by 'date'. You can override using the
+`.groups` argument.
+Joining, by = c("date", "age60")
+Error in `dplyr::select()`:
+! Can't subset columns that don't exist.
+✖ Column `date` doesn't exist.
+Backtrace:
+     ▆
+  1. ├─base::source("02_Code/Analysis_RKI_states.R")
+  2. │ ├─base::withVisible(eval(ei, envir))
+  3. │ └─base::eval(ei, envir)
+  4. │   └─base::eval(ei, envir)
+  5. ├─base::lapply(...)
+  6. │ └─global FUN(X[[i]], ...)
+  7. │   └─global interval_correction(...)
+  8. │     └─bind_rows(data_list) %>% ...
+  9. ├─dplyr::select(., date, horizon, age60, nowcast7_est, all_of(quantile_colnames))
+ 10. ├─dplyr:::select.data.frame(., date, horizon, age60, nowcast7_est, all_of(quantile_colnames))
+ 11. │ ├─dplyr:::tidyselect_fix_call(...)
+ 12. │ │ └─base::withCallingHandlers(...)
+ 13. │ └─tidyselect::eval_select(expr(c(...)), .data)
+ 14. │   └─tidyselect:::eval_select_impl(...)
+ 15. │     ├─tidyselect:::with_subscript_errors(...)
+ 16. │     │ └─rlang::try_fetch(...)
+ 17. │     │   └─base::withCallingHandlers(...)
+ 18. │     └─tidyselect:::vars_select_eval(...)
+ 19. │       └─tidyselect:::walk_data_tree(expr, data_mask, context_mask)
+ 20. │         └─tidyselect:::eval_c(expr, data_mask, context_mask)
+ 21. │           └─tidyselect:::reduce_sels(node, data_mask, context_mask, init = init)
+ 22. │             └─tidyselect:::walk_data_tree(new, data_mask, context_mask)
+ 23. │               └─tidyselect:::as_indices_sel_impl(...)
+ 24. │                 └─tidyselect:::as_indices_impl(...)
+ 25. │                   └─tidyselect:::chr_as_locations(x, vars, call = call, arg = arg)
+ 26. │                     └─vctrs::vec_as_location(...)
+ 27. └─vctrs (local) `<fn>`()
+ 28.   └─vctrs:::stop_subscript_oob(...)
+ 29.     └─vctrs:::stop_subscript(...)
+ 30.       └─rlang::abort(...)
+Warning message:
+In melt(data = data_real, id.vars = c("date", "age_group", "location"),  :
+  The melt generic in data.table has been passed a tbl_df and will attempt to redirect to the relevant reshape2 method; please note that reshape2 is deprecated, and this redirection is now deprecated as well. To continue using melt methods from reshape2 while both libraries are attached, e.g. melt.list, you can prepend the namespace like reshape2::melt(data_real). In the next version, this warning will become an error.
+Execution halted
