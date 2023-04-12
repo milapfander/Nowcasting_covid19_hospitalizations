@@ -2,3 +2,5 @@
 .Rhistory
 .RData
 .Ruserdata
+nohup.out
+nowcast_progress.log
