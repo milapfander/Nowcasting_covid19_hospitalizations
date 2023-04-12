@@ -2,9 +2,14 @@
 
 ---
 
-This repository contains the code to nowcast the Covid-19 hospitalizations.
+This is the public repository for the LMU Munich contribution (LMU_StaBLab-GAM_nowcast)
+to the [German COVID-19 Hospitalization Nowcast Hub](https://covid19nowcasthub.de/).
+The repository contains the code to perform the daily nowcast updates as well
+as all daily nowcast results. Methodological details of the implemented nowcasting
+approach are described in [Fritz et al. (2022)](https://journals.sagepub.com/doi/10.1177/1471082X221124628) and [Schneble et al. (2020)](https://onlinelibrary.wiley.com/doi/full/10.1002/bimj.202000143).
 
-## Folder Structure:
+
+### Structure of zje repository:
 
 
 ### 1 Data
@@ -13,7 +18,6 @@ This repository contains the code to nowcast the Covid-19 hospitalizations.
 - `population_age.rds`: german and federal state population by age
 - `population_German.rds`: total population of the german federal states
 - `realized7_after40d.csv`: realized hospitalizations of the last 7 days after 40 days
-
 
 ### 2 Code
 
@@ -33,7 +37,6 @@ In folder *Functions*:
 - `formatting_nowcast_data.R`: data formatting functions
 - `merge_corrections.R`: merging and formatting functions
 - `retrospective_eval.R`: functions for retro evaluation
-
 
 ### 3 Results
 

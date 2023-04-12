@@ -1,5 +1,5 @@
 ### Code to perform nowcasting of hospitalizations on federal state level based
-### on Schneble et al. (2020):
+### on Schneble et al. (2020) and Fritz et al. (2022):
 
 # Loading packages and functions:
 library(tidyverse)
@@ -19,7 +19,6 @@ source("02_Code/Functions/Evaluation.R")
 
 # Perform RKI nowcast
 doa <- Sys.Date()
-#doa <- as.Date("2023-04-06")
 T_0 <- doa - days(56) # data of eight weeks
 d_max <- 40
 locations <- c("DE", "DE-BB", "DE-BE", "DE-BW", "DE-BY", "DE-HE", "DE-HB",
@@ -106,10 +105,6 @@ lapply(X = locations, FUN = function(location) {
   interval_correction(doa = doa, location = location,
                       interval_vec = c(0.5, 0.8, 0.95))
 })
-#lapply(X = locations, FUN = function(location) {
-#  interval_correction_pit(doa = doa, location = location,
-#                      interval_vec = c(0.5, 0.8, 0.95))
-#})
 
 # Convert results to the format of the Nowcast Hub:
 formatting_RKI_data(doa, locations = locations, limit_factor = 0.9)
