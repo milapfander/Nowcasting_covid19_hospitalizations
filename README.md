@@ -9,17 +9,16 @@ as all daily nowcast results. Methodological details of the implemented nowcasti
 approach are described in [Fritz et al. (2022)](https://journals.sagepub.com/doi/10.1177/1471082X221124628) and [Schneble et al. (2020)](https://onlinelibrary.wiley.com/doi/full/10.1002/bimj.202000143).
 
 
-### Structure of zje repository:
+### Structure of the repository:
 
-
-### 1 Data
+#### 1 Data
 
 - `Data_RKI`: folder with preprocessed daily RKI data
 - `population_age.rds`: german and federal state population by age
 - `population_German.rds`: total population of the german federal states
 - `realized7_after40d.csv`: realized hospitalizations of the last 7 days after 40 days
 
-### 2 Code
+#### 2 Code
 
 Main code files:
 
@@ -38,7 +37,7 @@ In folder *Functions*:
 - `merge_corrections.R`: merging and formatting functions
 - `retrospective_eval.R`: functions for retro evaluation
 
-### 3 Results
+#### 3 Results
 
 A folder for the results of one day consists of:
 
