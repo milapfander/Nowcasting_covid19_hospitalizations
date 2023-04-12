@@ -8,7 +8,7 @@ evalNowcast <- function(doa_last = Sys.Date(), d_max = 40,
   cov_corr <- ifelse(correction, "coverage_correction_", "")
   
   # Filename of older evaluation data
-  filename <- unlist(list.files("Nowcast_Hosp/03_Results",
+  filename <- unlist(list.files("/03_Results",
                                 pattern = paste0(cov_corr, "evaluation_data.RDS"),
                                 full.names = TRUE))
   
@@ -35,11 +35,15 @@ evalNowcast <- function(doa_last = Sys.Date(), d_max = 40,
   now_list_recent <- list()
 
   for (d in seq_along(days)) {
+    print(d)
     ## Nowcasted data
     # Read nowcasted data for each day
-    now_dat <- read.csv2(paste0("Nowcast_Hosp/03_Results/RKI_results/", days[[d]],
-                                "/", cov_corr, "nowcasting_results_", location_RKI, 
-                                "_", days[[d]], ".csv"))
+    now_file <- paste0("03_Results/RKI_results/", days[[d]],
+                       "/", cov_corr, "nowcasting_results_", location_RKI, 
+                       "_", days[[d]], ".csv")
+    if (file.exists(now_file)) {
+      now_dat <- read.csv2(now_file)
+    }
     
     now_dat_day <- now_dat %>%
       filter(date == days[[d]]) %>%
@@ -48,9 +52,12 @@ evalNowcast <- function(doa_last = Sys.Date(), d_max = 40,
     
     ## Reported data
     # Read reported data that lies 40 days back for each day
-    true_dat <- read.csv2(paste0("Nowcast_Hosp/03_Results/RKI_results/", days[[d]] + 40,
-                                 "/", cov_corr, "nowcasting_results_", location_RKI, 
-                                 "_", days[[d]] + 40, ".csv"))
+    true_file <- paste0("03_Results/RKI_results/", days[[d]] + 40,
+                        "/", cov_corr, "nowcasting_results_", location_RKI, 
+                        "_", days[[d]] + 40, ".csv")
+    if (file.exists(true_file)) {
+      true_dat <- read.csv2(true_file)
+    }
     
     true_dat_day <- true_dat %>%
       filter(date == days[[d]]) %>%
@@ -70,7 +77,7 @@ evalNowcast <- function(doa_last = Sys.Date(), d_max = 40,
   } 
   
   # Save new evaluation data for future use
-  file <- paste0("Nowcast_Hosp/03_Results/", cov_corr, "evaluation_data.RDS")
+  file <- paste0("03_Results/Evaluation", cov_corr, "evaluation_data.RDS")
   saveRDS(object = eval_data, file = file)
   
   if (plot) {
@@ -101,13 +108,13 @@ evalPlot <- function (data_eval, location_RKI = "DE", correction = T) {
                 fill = "cornflowerblue",
                 col = NA,
                 alpha = .4)
-  labs(x = "Datum", 
-       y = "Hospitalisierungen") +
+  labs(x = "Date", 
+       y = "Daily hospitalizations") +
     facet_wrap(~age60, scale = "free") +
     theme_bw() +
     scale_x_date(date_labels = "%d.%m.%y") +
     scale_color_manual(name = NULL, values = c("Nowcast" = "cornflowerblue", 
-                                               "Meldungen" = "black")) +
+                                             "Meldungen" = "black")) +
     theme(axis.text = element_text(size = 14), 
           axis.title = element_text(size = 14),
           legend.position = "top")
@@ -120,8 +127,8 @@ evalPlot <- function (data_eval, location_RKI = "DE", correction = T) {
                 fill = "cornflowerblue", 
                 col = NA,
                 alpha = .4) +
-    labs(x = "Datum", 
-         y = "7-tägige Hospitalisierungen") +
+    labs(x = "Date", 
+         y = "Sum pf Hospitalisierungen") +
     facet_wrap(~age60, scale = "free") +
     theme_bw() +
     scale_x_date(date_labels = "%d.%m.%y") +
@@ -133,19 +140,19 @@ evalPlot <- function (data_eval, location_RKI = "DE", correction = T) {
   
   
   # Filenames
-  filename_daily <- 
-    paste0("Nowcast_Hosp/03_Results/RKI_results/", max(data_eval$date), "/eval_plot_",
-           cov_corr, "daily_", 
-           location_RKI, "_", max(data_eval$date),
-           ".png")
+  #filename_daily <- 
+  #  paste0("Nowcast_Hosp/03_Results/RKI_results/", max(data_eval$date), "/eval_plot_",
+  #         cov_corr, "daily_", 
+  #         location_RKI, "_", max(data_eval$date),
+  #         ".png")
   filename_7days <- 
-    paste0("Nowcast_Hosp/03_Results/RKI_results/", max(data_eval$date), "/eval_plot_",
+    paste0("03_Results/RKI_results/", max(data_eval$date), "/eval_plot_",
            cov_corr, "7days_", 
            location_RKI, "_", max(data_eval$date),
            ".png")
   
   # Save plots
-  ggsave(filename = filename_daily, plot = plot_daily)
+  #ggsave(filename = filename_daily, plot = plot_daily)
   ggsave(filename = filename_7days, plot = plot_7days)
   
 }

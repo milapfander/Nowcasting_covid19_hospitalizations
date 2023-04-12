@@ -69,7 +69,7 @@ data_real <- bind_rows(data_ger, data_fed) %>%
 colnames(data_real)[colnames(data_real) == "age_group"] <- "age"
 
 # save data
-write_csv(data_real, file = "01_Data/realized7_after40d.csv")
+write_csv(data_real, file = "03_Results/Evaluation/realized7_after40d.csv")
 
 
 

@@ -10,7 +10,7 @@ merge_nowcast_corrections <- function(start_date, end_date,
                        locations = c("DE", "DE-BB", "DE-BE", "DE-BW", "DE-BY", "DE-HB", "DE-HE",
                                      "DE-HH", "DE-MV", "DE-NI", "DE-NW", "DE-RP", "DE-SH", "DE-SL",
                                      "DE-SN", "DE-ST", "DE-TH"),
-                       retrospective = TRUE, days = 40) {
+                       retrospective = FALSE, days = 40) {
   
   if (retrospective == TRUE) {
     retro <- "_retrospective/"
@@ -27,37 +27,50 @@ merge_nowcast_corrections <- function(start_date, end_date,
     print(curr_date)
     
     # all nowcasts of a day
-    dat_nowcast <- lapply(locations, function(l){
-      read_csv2(paste0("03_Results/RKI_results",
-                       retro, curr_date, "/nowcasting_results_",
-                       l, "_", curr_date, ".csv")) %>%
-        mutate(date_calc = curr_date,
-               location = l) %>%
-        dplyr::select(date, date_calc, age60, location, starts_with("nowcast7_"))
-    }) %>%
-      bind_rows() %>%
-      filter(date > curr_date - days) %>%
-      mutate(method = "bootstrap")
+      dat_nowcast <- lapply(locations, function(l){
+        file_nowcast <- paste0("03_Results/RKI_results",
+                               retro, curr_date, "/nowcasting_results_",
+                               l, "_", curr_date, ".csv")
+        if (file.exists(file_nowcast)) {
+          read_csv2(file_nowcast) %>%
+            mutate(date_calc = curr_date,
+                   location = l) %>%
+            dplyr::select(date, date_calc, age60, location, starts_with("nowcast7_"))
+        }
+      })
+      if (!is.null(dat_nowcast[[1]])) {
+        dat_nowcast <- dat_nowcast %>% 
+          bind_rows() %>%
+          filter(date > curr_date - days) %>%
+          mutate(method = "bootstrap")
+      }
     
     # all coverage corrections of a day
-    dat_coverage <- lapply(locations, function(l){
-      read_csv2(paste0("03_Results/RKI_results",
-                       retro, curr_date, "/coverage_correction_nowcasting_results_",
-                       l, "_", curr_date, ".csv")) %>%
-        mutate(date_calc = curr_date,
-               location = l) %>%
-        dplyr::select(date, date_calc, age60, location, starts_with("nowcast7_"))
-    }) %>%
-      bind_rows() %>%
-      filter(date > curr_date - days) %>%
-      mutate(method = "factor")
+    
+      dat_coverage <- lapply(locations, function(l){
+        file_coverage <- paste0("03_Results/RKI_results",
+                                retro, curr_date, "/coverage_correction_nowcasting_results_",
+                                l, "_", curr_date, ".csv")
+        if (file.exists(file_coverage)) {
+          read_csv2(file_coverage) %>%
+            mutate(date_calc = curr_date,
+                   location = l) %>%
+            dplyr::select(date, date_calc, age60, location, starts_with("nowcast7_"))
+        }
+      })
+    if (!is.null(dat_coverage[[1]])) {
+      dat_coverage <- dat_coverage %>%
+        bind_rows() %>%
+        filter(date > curr_date - days) %>%
+        mutate(method = "factor")
+    }
     
     # join data frames
     dat_one_day <- bind_rows(dat_nowcast, dat_coverage)
   }) %>% bind_rows()
   
   # read data realized7 after 40 days
-  data_real <- read_csv("01_Data/realized7_after40d.csv")
+  data_real <- read_csv("03_Results/Evaluation/realized7_after40d.csv")
   
   # add realized7 to nowcast data by age, location and nowcast date (not calculation date)
   dat <- left_join(dat_complete, data_real, by = c("date", "age60" = "age", "location"))
