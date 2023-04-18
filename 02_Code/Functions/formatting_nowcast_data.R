@@ -1,3 +1,5 @@
+# file to preprocess data for hospitalization changepoint analysis
+
 library(dplyr)
 
 format_nowcast_data <- function(url_nowcast = paste0("https://raw.githubusercontent.com/KITmetricslab/hospitalization-nowcast-hub/main/data-processed/"),
@@ -92,7 +94,7 @@ format_nowcast_data <- function(url_nowcast = paste0("https://raw.githubusercont
 
   
 format_nowcast_data(nowcast_type = "NowcastHub-MeanEnsemble",
-                    target_file = "Nowcast_Hosp/03_Results/RKI_results/bruchpunkt_nowcast_abs.rds")
+                    target_file = "03_Results/RKI_results/bruchpunkt_nowcast_abs.rds")
 
 
 
