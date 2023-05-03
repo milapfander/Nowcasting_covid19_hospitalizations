@@ -16,7 +16,7 @@ format_nowcast_data <- function(url_nowcast = paste0("https://raw.githubusercont
   url_nowcast_full <- paste0(url_nowcast, nowcast_type, "/", Sys.Date(), "-",
                         nowcast_type, ".csv")
   
-  if(tryCatch(read.csv(url(url_nowcast_full)),error = function(e){return("fail")}) != "fail"){
+  if(tryCatch(is.data.frame(read.csv(url(url_nowcast_full))),error = function(e){return("fail")}) != "fail"){
     data_nowcast <- read.csv(url(url_nowcast_full))
   }
   else {
