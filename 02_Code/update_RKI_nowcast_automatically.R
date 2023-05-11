@@ -82,54 +82,7 @@ while(TRUE) {
          message = paste0("nowcasting results LMU_StaBLab_", as_date(now())))
   git2r::push(object = nowcast_repo, credentials = cred_github)
   
-  # start changepoint analysis on wednesdays
-  if (weekdays(day) == "Wednesday") {
-    # wait 8 hours after completion of nowcast
-    Sys.sleep(28800)
-    tryCatch({ # hosp
-        # create dataset for hosp cp
-        source("02_Code/Functions/formatting_nowcast_data.R")
-        
-        setwd("../changepoint_analysis/")
-        
-        # run cp analysis
-        doa <- day
-        ## hosp
-        data_path <- "../Nowcasting_covid19_hospitalizations/03_Results/RKI_results/bruchpunkt_nowcast_abs.rds"
-        # run hosp analysis
-        source("hospitalization/code/hosp_analysis.R")
-        # create result files
-        source("hospitalization/code/hosp_plots.R")
-        
-        setwd("../Nowcasting_covid19_hospitalizations/")
-        
-      },
-      error = function(e) print(e))
-    
-    if(str_detect(getwd(), "changepoint_analysis"))
-      setwd("../Nowcasting_covid19_hospitalizations/")
-    
-    tryCatch({ # icu
-        setwd("../changepoint_analysis/")
-        
-        # manually put data in the icu/data folder
-        # download does not work since the download url changes with the current browser session
-        data_path <- paste0("icu/data/divi_admissions.rds")
-        # scrape icu admissions
-        source("icu/code/scrape_icu.R")
-        # run icu analysis
-        source("icu/code/icu_analysis.R")
-        # create result files
-        source("icu/code/icu_plots.R")
-        
-        setwd("../Nowcasting_covid19_hospitalizations/")
-      },
-      error = function(e) print(e))
-        
-    if(str_detect(getwd(), "changepoint_analysis"))
-      setwd("../Nowcasting_covid19_hospitalizations/")
-  }
-  
+
   # Incrase day for execution time by one unit:
   if (now("CET") > exec_time) {
     day <- day + days(1)
