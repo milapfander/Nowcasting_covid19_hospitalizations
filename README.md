@@ -33,7 +33,6 @@ In folder *Functions*:
 - `Intervals.R`: interval correction function
 - `construct_realized7_after40d.R`: Script to generate dataset with realized hospitalizations after 40 days
 - `Evaluation.R`: evaluation functions
-- `formatting_nowcast_data.R`: data formatting functions
 - `merge_corrections.R`: merging and formatting functions
 - `retrospective_eval.R`: functions for retro evaluation
 
