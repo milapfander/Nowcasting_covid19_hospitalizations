@@ -1,31 +1,28 @@
 # This function performs the nowcasting described in Section 4 of the paper
 
-# Input: 
-# - doa: day of analysis
-# - T.0: first registration date to be considered in the nowcast, corresponds to t = 0
-# This function performs the nowcasting described in Section 4 of the paper
-
-# Input: 
-# - doa: day of analysis
-# - T.0: first registration date to be considered in the nowcast, corresponds to t = 0
-# - d.max: maximum duration time that is assumed, see Section 5
-# - base (two options: Meldedatum or Hospdatum)
-# - create.plots: if TRUE, the plots which are depicted in Figures 3-5 
-# are produced, if FALSE (default), no plots are produced
-# - print.effects: if TRUE (default to FALSE) prints the numbers shown in Table 3
-# - quantiles to be extracted
-# - age_groups (options: split60, RKI)
-# - adjust quantiles: Should quantiles be adjusted due to realization
-#   uncertainty
-# - save_model: Should the GAM model be saved?
-
-# Output: a data frame that contains the estimated distribution function
-# F_t(T-t) as well as the corresponding 2.5% and 97.5% quantiles
+#' function to perform the nowcast calculations
+#' @param doa day of analysis
+#' @param T.0 first registration date to be considered in the nowcast, corresponds to t = 0
+#' @param d.max maximum duration time that is assumed, see Section 5
+#' @param base (two options: Meldedatum or Hospdatum)
+#' @param n passed to `predict_nowcast`
+#' @param path data path
+#' @param save should daily results be saved, default TRUE
+#' @param location_RKI location, e.g. "DE" for Germany or federal states
+#' @param quantiles to be extracted
+#' @param age_groups (options: split60, RKI)
+#' @param adjust_quantiles Should quantiles be adjusted due to realization
+#'   uncertainty
+#' @param save_model Should the GAM model be saved?
+#' @param save_bootstrap should bootstrap evaluations be saved, default FALSE
+#' @param retrospective retrospective evaluation?, default FALSE
+#' 
+#' @returns a data frame that contains the estimated distribution function
+#' F_t(T-t) as well as the corresponding 2.5% and 97.5% quantiles
 
 nowcasting <- function(doa, T_0, d_max, base = "Meldedatum", n = 100,
-                       create_plots = FALSE, print_effects = FALSE,
                        path = "01_Data", save = TRUE,
-                       location_RKI = "DE", due_to_covid = FALSE,
+                       location_RKI = "DE",
                        quantiles = c(0.025, 0.1, 0.25, 0.5, 0.75, 0.8, 0.85, 0.9, 0.95, 0.975),
                        age_groups = "split60", adjust_quantiles = FALSE,
                        save_model = FALSE, save_bootstrap = FALSE,
@@ -241,29 +238,30 @@ nowcasting <- function(doa, T_0, d_max, base = "Meldedatum", n = 100,
   return(data_report)
 }
 
-# This function performs the actual nowcast (i.e. calculates the nowcasted
-# hospitalizations) and calculates the required quantiles via a bootstrap.
-# It is only called inside the function nowcasting(...)
-
-# Input: 
-# - model: the fitted nowcast model
-# - data: a data frame that contains all the data fitted in the nowcasting model
-# a column that contains the fitted probabilities pi() is also included
-# - newdata: a data frame that contains the data to be predicted 
-# (i.e. the NAs in the matrix stated in Section 5)
-# a column that contains the predicted probabilities pi() is also included
-# - T_max: the number of considered registration dates
-# - n: number of bootstrap samples (default to n = 10 000)
-# - alpha: alpha/2 and 1-alpha/2 quantiles of the nowcast will be calculated
-# - base (two options: Meldedatum or Hospdatum)
-# (default to alpha = 0.05)
-
-# Output: a data frame that binds the rows of data and newdata including new 
-# columns for the nowcast estimate as well as the 
-# alpha/2 and 1-alpha/2 quantiles
+#' This function performs the actual nowcast (i.e. calculates the nowcasted
+#' hospitalizations) and calculates the required quantiles via a bootstrap.
+#' It is only called inside the function nowcasting(...)
+#' 
+#' @param model the fitted nowcast model
+#' @param data a data frame that contains all the data fitted in the nowcasting
+#'   model; a column that contains the fitted probabilities pi() is also included
+#' @param doa day of analysis
+#' @param T_max the number of considered registration dates
+#' @param quantiles inherited from `nowcasting`
+#' @param n number of bootstrap samples (default to n = 10 000)
+#' @param adjust_quantiles Should quantiles be adjusted due to realization
+#'   uncertainty
+#' @param retrospective inherited from `nowcasting`
+#' @param save_bootstrap inherited from `nowcasting`
+#' @param location_RKI inherited from `nowcasting`
+#' @param path prefix for data to save results to
+#' 
+#' @returns a data frame that binds the rows of data and newdata including new 
+#' columns for the nowcast estimate as well as the alpha/2 and 1-alpha/2
+#' quantiles
 
 predict_nowcast <- function(model, data, doa, T_max, quantiles, n = 1000,
-                            alpha = 0.05, adjust_quantiles = FALSE,
+                            adjust_quantiles = FALSE,
                             retrospective = FALSE,
                             save_bootstrap = FALSE, location_RKI = "DE",
                             path = "01_Data") {
@@ -493,12 +491,15 @@ predict_nowcast <- function(model, data, doa, T_max, quantiles, n = 1000,
 }
 
 
-## This function adds older time points to the output data of the nowcasting
-## function:
-# Input: 
-# - data_report: output data of nowcasting model
-# - data_old: data containing data with baseline dates older than T_0
-add_older_data <- function(data_report, data_old, age_groups, quantiles) {
+#' This function adds older time points to the output data of the nowcasting
+#' function. Used in the function `nowcasting`
+#' 
+#' @param data_report output data of nowcasting model
+#' @param data_old data containing data with baseline dates older than T_0
+#' @param quantiles inherited from `nowcasting`
+#' 
+#' @returns a data frame with additional (older) observations
+add_older_data <- function(data_report, data_old, quantiles) {
   data_old <- data_old %>% mutate(Altersgruppe = as.factor(Altersgruppe))
   
   # Preparation of older data:
@@ -558,9 +559,15 @@ add_older_data <- function(data_report, data_old, age_groups, quantiles) {
 }
 
 
-# Function to correct unplausibly high values for upper quantiles. The
-# correction is based on the distribution of the quantiles of a normal
-# distribution:
+#' Function to correct unplausibly high values for upper quantiles. The
+#' correction is based on the distribution of the quantiles of a normal
+#' distribution.
+#' 
+#' @param data data frame containing nowcast results and quantiles
+#' @param limit_factor constant value used in calculation, default 0.9
+#' @param quantiles vector of quantiles to be corrected
+#' 
+#' @returns data frame with corrected quantiles
 adjust_high_quantiles <- function(data, limit_factor = 0.9,
                                   quantiles = c(0.75, 0.8, 0.85, 0.9, 0.95,
                                                 0.975)) {
@@ -592,7 +599,11 @@ adjust_high_quantiles <- function(data, limit_factor = 0.9,
 }
 
 
-# Function to set quantiles of 0 to reported number of hospitalizations:
+#' Function to set quantiles of 0 to reported number of hospitalizations
+#' 
+#' @param data data frame containing nowcast results and quantiles
+#' 
+#' @returns data frame with corrected quantiles
 correct_zeros <- function(data) {
   
   # Data frame with reported numbers and quantiles for seven day nowcasts:

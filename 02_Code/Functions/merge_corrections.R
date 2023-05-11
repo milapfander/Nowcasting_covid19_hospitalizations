@@ -80,9 +80,9 @@ merge_nowcast_corrections <- function(start_date, end_date,
 
 #' function to prepare aggregated evaluation data for different horizons
 #' @param dat data frame from merge_corrections()
-#' @param quantiles quantiles of interest, as decimal numbers
-#' @return data frame with columns horizon, age, location and the share of realized values
-#'  below the quantile value
+#' @param intervals quantiles of interest, as decimal numbers
+#' @return data frame with columns horizon, age, location and the share of
+#' realized values below the quantile value
 prepare_evaluation_data <- function(dat, intervals = c(0.5, 0.8, 0.95)) {
   
   # Extract quantiles from intervals:

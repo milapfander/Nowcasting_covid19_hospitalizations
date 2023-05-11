@@ -1,5 +1,13 @@
-# Function to bring data into the submission format for the nowcast hub:
-formatting_RKI_data <- function(doa, locations, limit_factor = 0.9,
+#' Function to bring data into the submission format for the nowcast hub
+#' 
+#' @param doa day of analysis
+#' @param locations vector of german federal states or Germany, abbreviated
+#' @param correct quantile correction method
+#' @param save should the results be saved, default TRUE
+#' @param retrospective should a retrospective evaluation be performed, default FALSE
+#' 
+#' @returns 
+formatting_RKI_data <- function(doa, locations,
                                 correct = "coverage", save = TRUE,
                                 retrospective = FALSE) {
 
@@ -19,11 +27,7 @@ formatting_RKI_data <- function(doa, locations, limit_factor = 0.9,
       file <- paste0(doa, "/coverage_correction_nowcasting_results_", location,
                      "_", doa, ".csv")
     }
-    if (correct == "pit") {
-      file <- paste0(doa, "/pit_correction_nowcasting_results_", location,
-                     "_", doa, ".csv")
-    }
-    
+
     data <- read_csv2(file = paste0(path, file)) %>% as.data.frame()
     
     # Correct unplausibly low and high quantiles:
@@ -88,60 +92,3 @@ formatting_RKI_data <- function(doa, locations, limit_factor = 0.9,
                             "-LMU_StaBLab-GAM_nowcast.csv"))
   }
 }
-
-
-
-# Function to correct unplausibly high values for upper quantiles. The
-# correction is based on the distribution of the quantiles of a normal
-# distribution:
-adjust_high_quantiles <- function(data, limit_factor = 0.9,
-                                   quantiles = c(0.75, 0.8, 0.85, 0.9, 0.95,
-                                                 0.975)) {
-  
-  # Data frame with quantiles for seven day nowcasts:
-  cols <- paste0("nowcast7_", quantiles)
-  data_quantiles <- data %>% as.data.frame() %>% dplyr::select(all_of(cols))
-  
-  # Vector of quantiles of normal distribution:
-  quantiles_normal <- qnorm(quantiles)
-  
-  # for loop through quantiles (correction starts with second quantile):
-  for (i in 2:(length(quantiles))) {
-    normal_ratio <- quantiles_normal[i] / quantiles_normal[i - 1]
-    data_quantiles$quantile_ratio <- data_quantiles[, i] /
-      data_quantiles[, i - 1]
-    data_quantiles[, i] <- ifelse(test = data_quantiles$quantile_ratio >
-                                    normal_ratio * limit_factor,
-                                  yes = data_quantiles[, i - 1] *
-                                    normal_ratio * limit_factor,
-                                  no = data_quantiles[, i])
-  }
-  data_quantiles <- data_quantiles %>% dplyr::select(-quantile_ratio) %>%
-    mutate_all(round, 1)
-  
-  # Replace quantiles in original data:
-  data[, cols] <- data_quantiles
-  return(data)
-}
-
-
-# Function to set quantiles of 0 to reported number of hospitalizations:
-correct_zeros <- function(data) {
-  
-  # Data frame with reported numbers and quantiles for seven day nowcasts:
-  cols <- c("reported7", colnames(data)[str_starts(colnames(data), "nowcast7_0")])
-  data_check <- data %>% as.data.frame() %>%
-    dplyr::select(c("reported7", starts_with("nowcast7_0")))
-  data_check <- as.data.frame(apply(X = data_check, MARGIN = 2,
-                      FUN = function(quantile) ifelse(test = data_check$reported7 > quantile,
-                                                      yes = data_check$reported7,
-                                                      no = quantile)))
-  
-  # Replace quantiles in original data:
-  data[, cols] <- data_check
-  return(data)
-}
-
-
-
-

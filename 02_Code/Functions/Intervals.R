@@ -1,6 +1,12 @@
 library(dplyr)
 
 ### Interval correction with expansion factor:
+#' @param doa day of analysis
+#' @param location single location, abbreviated
+#' @param interval_vec vector of confidence levels to be corrected
+#' @param retrospective should a retrospective evaluation be performed, default FALSE
+#' 
+#' @returns only saves the results
 interval_correction <- function(doa, location, interval_vec = c(0.8, 0.95),
                                 retrospective = FALSE) {
   
@@ -151,35 +157,3 @@ interval_correction <- function(doa, location, interval_vec = c(0.8, 0.95),
                            "/coverage_correction_nowcasting_results_", location, "_", doa, ".csv"),
              row.names = FALSE)
 }
-
-
-# Function to set quantiles of 0 to reported number of hospitalizations:
-correct_zeros <- function(data) {
-  
-  # Data frame with reported numbers and quantiles for seven day nowcasts:
-  cols <- c("reported7", colnames(data)[str_starts(colnames(data), "nowcast7_0")])
-  data_check <- data %>% as.data.frame() %>%
-    dplyr::select(c("reported7", starts_with("nowcast7_0")))
-  data_check <- as.data.frame(apply(X = data_check, MARGIN = 2,
-                                    FUN = function(quantile) ifelse(test = data_check$reported7 > quantile,
-                                                                    yes = data_check$reported7,
-                                                                    no = quantile)))
-  
-  # Replace quantiles in original data:
-  data[, cols] <- data_check
-  return(data)
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-

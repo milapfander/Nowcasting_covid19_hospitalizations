@@ -1,3 +1,11 @@
+#' function for retrospective evaluation of the nowcast
+#' 
+#' @param data_RKI RKI data containing
+#' @param date_retro maximum date for data to be restricted
+#' @param path path to save newly created data to
+#' @param save should the data be saved, default TRUE
+#' 
+#' @returns data frame or only writes the data to disk
 retroEval <- function(data_RKI, date_retro,
                       path = paste0("03_Results/Evaluation/retrospective/retrospective_data_RKI_",
                                     date_retro, ".csv"),
@@ -16,6 +24,11 @@ retroEval <- function(data_RKI, date_retro,
   }
 }
 
+#' function to revert data
+#' 
+#' @param data input data
+#' 
+#' @returns data frame
 revert <- function (data) {
   if (nrow(data) < 81) {
     tri <- nrow(data)
@@ -39,5 +52,3 @@ revert <- function (data) {
   }
   return(data)
 }
-
-

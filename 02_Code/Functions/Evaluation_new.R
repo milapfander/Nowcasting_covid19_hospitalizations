@@ -1,4 +1,15 @@
 ## Create data sets for evaluation
+
+#' function to evaluate the nowcast results
+#' @param doa_last last date of data, default today
+#' @param d_max maximal lag/horizon in days, default 40 days
+#' @param location_RKI default "DE"
+#' @param correction should coverage correction method be used for confidence
+#' intervals, default TRUE
+#' @param plot should a plot using `plotEval` be generated, default TRUE
+#' 
+#' @returns only saves the evaluation results to "03_Results/Evaluation/
+#' coverage_correction_evaluation_data.RDS"
 evalNowcast <- function(doa_last = Sys.Date(), d_max = 40,  
                         location_RKI = "DE", correction = T, plot = T) {
   
@@ -61,7 +72,7 @@ evalNowcast <- function(doa_last = Sys.Date(), d_max = 40,
     mutate(date = as.Date(date), age60 = as.factor(age60))
   
   # Save new evaluation data for future use
-  file <- paste0("03_Results/Evaluation", cov_corr, "evaluation_data.RDS")
+  file <- paste0("03_Results/Evaluation/", cov_corr, "evaluation_data.RDS")
   saveRDS(object = eval_data, file = file)
   
   # Plot
@@ -70,6 +81,16 @@ evalNowcast <- function(doa_last = Sys.Date(), d_max = 40,
 
 
 ## Create plots for evaluation
+#' function to generate a plot for the evaluation results from function 
+#' `evalNowcast`
+#' @param data_eval evaluation data, results from function `evalNowcast`
+#' @param location_RKI default "DE"
+#' @param correction should coverage correction method be used for confidence
+#' intervals, default TRUE
+#' 
+#' @import ggplot2
+#' 
+#' @returns only saves the generated plot to "03_Results/RKI_results/"
 evalPlot <- function (data_eval, location_RKI = "DE", correction = T) {
   
   library(ggplot2)
