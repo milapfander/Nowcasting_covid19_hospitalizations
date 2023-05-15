@@ -24,11 +24,12 @@ retroEval <- function(data_RKI, date_retro,
   }
 }
 
-#' function to revert data
+#' function to revert data to an older version by replacing newer observations
+#' with missing values
 #' 
 #' @param data input data
 #' 
-#' @returns data frame
+#' @returns data frame with less observations
 revert <- function (data) {
   if (nrow(data) < 81) {
     tri <- nrow(data)
