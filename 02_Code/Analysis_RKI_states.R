@@ -107,7 +107,7 @@ lapply(X = locations, FUN = function(location) {
 })
 
 # Convert results to the format of the Nowcast Hub:
-formatting_RKI_data(doa, locations = locations, limit_factor = 0.9)
+formatting_RKI_data(doa, locations = locations)
 
 
 # Evaluation
