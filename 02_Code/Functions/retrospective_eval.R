@@ -1,4 +1,4 @@
-#' function for retrospective evaluation of the nowcast
+#' function to construct old versions of RKI data
 #' 
 #' @param data_RKI RKI data containing
 #' @param date_retro maximum date for data to be restricted
@@ -7,7 +7,7 @@
 #' 
 #' @returns data frame or only writes the data to disk
 retroEval <- function(data_RKI, date_retro,
-                      path = paste0("03_Results/Evaluation/retrospective/retrospective_data_RKI_",
+                      path = paste0("01_Data/Data_RKI/COVID-19_hospitalizations_preprocessed_",
                                     date_retro, ".csv"),
                       save = T) {
   library(dplyr)
