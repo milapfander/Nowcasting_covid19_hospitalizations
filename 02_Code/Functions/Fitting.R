@@ -34,7 +34,6 @@ nowcasting <- function(doa, T_0, d_max, base = "Meldedatum", n = 100,
   library(lubridate)
   library(mgcv)
   library(readxl)
-  #library(rgdal)
   library(checkmate)
   library(data.table)
   library(parallel)
@@ -183,8 +182,7 @@ nowcasting <- function(doa, T_0, d_max, base = "Meldedatum", n = 100,
                   starts_with("F_quantile_")) %>%
     arrange(desc(base))
   
-  data_report <- add_older_data(data_report, data_old, age_groups,
-                                quantiles)
+  data_report <- add_older_data(data_report, data_old, quantiles)
   
   # Add 7-day sum of reported values:
   data_report$Altersgruppe <- as.factor(data_report$Altersgruppe)
