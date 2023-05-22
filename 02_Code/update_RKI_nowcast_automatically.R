@@ -39,8 +39,8 @@ while(TRUE) {
                                     day, ".csv"))
     data_new <- data.table(read.csv(paste0("01_Data/Data_RKI/COVID-19_hospitalizations_preprocessed_",
                                            day, ".csv")))
-    data_old <- data.table(read.csv(paste0("01_Data/Data_RKI/COVID-19_hospitalizations_preprocessed_",
-                                           day - 1, ".csv")))
+    file_old <- list.files("01_Data/Data_RKI")[length(list.files("01_Data/Data_RKI")) - 1]
+    data_old <- data.table(read.csv(paste0("01_Data/Data_RKI/", file_old)))
     if (data_new$date[nrow(data_new)] == data_old$date[nrow(data_old)]) {
       print("no new data available")
       # Sleep for half an hour and try again:
