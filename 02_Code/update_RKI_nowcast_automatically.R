@@ -9,7 +9,7 @@ library(data.table)
 current_time <- now("CET")
 print(current_time)
 hour <- as.numeric(strftime(x = current_time, format = "%H"))
-day <- as_date(now())
+day <- as_date(now("CET"))
 day <- if_else(file.exists(paste0("03_Results/RKI_results/", day,
                                   "/", day, "-LMU_StaBLab-GAM_nowcast.csv")),
                day + days(1), day)
@@ -85,7 +85,7 @@ while(TRUE) {
 
   # Incrase day for execution time by one unit:
   if (now("CET") > exec_time) {
-    day <- day + days(1)
+    day <- as_date(now("CET")) + days(1)
   }
 }
 
