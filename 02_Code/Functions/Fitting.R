@@ -207,7 +207,7 @@ nowcasting <- function(doa, T_0, d_max, base = "Meldedatum", n = 100,
   colnames(data_report) <- c("date", "age60", "reported", "nowcast_est",
                              paste0("nowcast_",rep(quantiles, each=1)),
                              "reported7", "nowcast7_est", paste0("nowcast7_",rep(quantiles, each=1)),
-                             "F_est", paste0("F_",rep(quantiles, each=1)))
+                             "F_est", paste0("F_",rep(quantiles, each = 1)))
   
   # Correct unplausibly low and high quantiles:
   data_report <- data_report %>% adjust_high_quantiles() %>% correct_zeros()
@@ -580,8 +580,10 @@ adjust_high_quantiles <- function(data, limit_factor = 0.9,
   # for loop through quantiles (correction starts with second quantile):
   for (i in 2:(length(quantiles))) {
     normal_ratio <- quantiles_normal[i] / quantiles_normal[i - 1]
-    data_quantiles$quantile_ratio <- data_quantiles[, i] /
-      data_quantiles[, i - 1]
+    data_quantiles$quantile_ratio <- ifelse(data_quantiles[, i - 1] > 0,
+                                            data_quantiles[, i] /
+                                              data_quantiles[, i - 1],
+                                            0)
     data_quantiles[, i] <- ifelse(data_quantiles$quantile_ratio >
                                     normal_ratio * limit_factor,
                                   data_quantiles[, i - 1] *
