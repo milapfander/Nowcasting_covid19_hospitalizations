@@ -101,6 +101,12 @@ if (cores == 1) {
 }
 
 # Enlarge intervals to hold 95% and 50% prediction intervals:
+# Only usage of locations where results are provided:
+results_folder <- paste0("03_Results/RKI_results/", doa, "/")
+locations <- list.files(results_folder)[startsWith(x = list.files(results_folder),
+                                                   prefix = "nowcasting_results")]
+locations <- substr(x = locations, start = 20, stop = 24)
+locations <- ifelse(locations == "DE_20", yes = "DE", no = locations)
 lapply(X = locations, FUN = function(location) {
   interval_correction(doa = doa, location = location,
                       interval_vec = c(0.5, 0.8, 0.95))
