@@ -66,10 +66,10 @@ while(TRUE) {
   
   # Copy file to forked GitHub repository:
   file.copy(from = paste0("03_Results/RKI_results/",
-                          as_date(now()), "/", as_date(now()),
+                          day, "/", day,
                           "-LMU_StaBLab-GAM_nowcast.csv"),
             to = paste0("../hospitalization-nowcast-hub/data-processed/LMU_StaBLab-GAM_nowcast/",
-                        as_date(now()), "-LMU_StaBLab-GAM_nowcast.csv"))
+                        day, "-LMU_StaBLab-GAM_nowcast.csv"))
   
   # Commit results to forked GitHub repository:
   nowcast_repo <- paste0("../hospitalization-nowcast-hub")
@@ -79,13 +79,13 @@ while(TRUE) {
   git2r::add(repo = nowcast_repo,
              path = file.path("/home/ubuntu/hospitalization-nowcast-hub/*"))
   git2r::commit(repo = nowcast_repo,
-         message = paste0("nowcasting results LMU_StaBLab_", as_date(now())))
+         message = paste0("nowcasting results LMU_StaBLab_", day))
   git2r::push(object = nowcast_repo, credentials = cred_github)
   
 
   # Incrase day for execution time by one unit:
   if (now("CET") > exec_time) {
-    day <- as_date(now("CET")) + days(1)
+    day <- day + days(1)
   }
 }
 
