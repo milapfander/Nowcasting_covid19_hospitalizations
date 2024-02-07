@@ -8,7 +8,7 @@
 #' 
 #' @returns 
 formatting_RKI_data <- function(doa, locations,
-                                correct = "coverage", save = TRUE,
+                                correct = "none", save = TRUE,
                                 retrospective = FALSE) {
 
   path <- ifelse(retrospective, 
